@@ -23,9 +23,22 @@ class List extends Component {
         <header className="App-header">
           <h1 className="App-title">Words List</h1>
         </header>
-        {this.state.items.map(word =>
-          <div key={word.word}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></div>
-        )}
+        {/* {this.state.items.map(word =>
+          <ul key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></ul>
+        )} */}
+        <table>
+          <thead>
+            <th>Word</th>
+            <th>Translation</th>
+            <th>Rating</th>
+            <th>Last answered</th>
+          </thead>
+          <tbody>
+            {this.state.items.map(word =>
+            <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
+            )}
+          </tbody>
+        </table>
       </div>
     );
   }

@@ -1,10 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const WordListItem = ({
     word,
     translation,
     rating,
     date
-}) => <div>{word} - {translation}</div>
+// }) => <li>{word} - {translation}</li>
+
+}) => 
+    <React.Fragment>
+        <td>{word}</td>
+        <td>{translation}</td>
+        <td>{rating}</td>
+        <td>{date}</td>
+    </React.Fragment>
 
 export default WordListItem;
