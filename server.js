@@ -44,6 +44,18 @@ var db = new sqlite3.Database('./test.db', (err) => {
       res.json(rows);
     });
   });
+
+  app.get('/quiz', function (req, res, next) {
+    //need to select random words which have rating less than median limit 10
+    const sql = 'SELECT * FROM words limit 1'
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json(rows);
+    });
+  });
    
   // db.close((err) => {
   //   if (err) {

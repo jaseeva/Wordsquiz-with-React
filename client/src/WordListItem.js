@@ -6,13 +6,6 @@ function WordListItem ({
     rating,
     date
 }) { 
-    // const answered = ({date}) => {
-    //     console.log(`date: `, {date})
-    //     if ({date} != null) {
-    //         return date
-    //     }
-    //     return "not answered yet"
-    // }
     return (
     <React.Fragment>
         <td>{word}</td>
