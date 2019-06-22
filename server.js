@@ -45,6 +45,33 @@ var db = new sqlite3.Database('./test.db', (err) => {
     });
   });
 
+  function countMedian (arr) {
+    let median;
+    let i;
+    if ((arr.length % 2) === 1) {
+      i = Math.floor(arr.length / 2)
+    } else { 
+      i = (arr[arr.length / 2] + arr[arr.length / 2 + 1]) / 2 - 1
+    }
+    return median = arr[i]
+  }
+
+  app.get('/median', function (req, res, next) {
+    let rates = []
+    const sql = "SELECT learned_rating from words GROUP BY learned_rating ORDER BY learned_rating ASC"
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      rows.forEach(el => {
+        rates.push(el.learned_rating)
+      })
+      res.json(countMedian(rates));
+      //console.log(`res: `, res)
+    });
+  })
+
   app.get('/quiz', function (req, res, next) {
     //need to select random words which have rating less than median limit 10
     const sql = 'SELECT * FROM words limit 1'
