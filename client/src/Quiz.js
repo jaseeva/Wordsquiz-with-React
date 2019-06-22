@@ -5,7 +5,8 @@ class Quiz extends Component {
     constructor(){
       super()
       this.state = {
-        median: 0
+        median: 0,
+        quiz: []
       };
     }
   
@@ -15,12 +16,18 @@ class Quiz extends Component {
             console.log(`res_: `, res);
             this.setState({ median: res.data });
         })
+
+        axios.get('/quiz?m={this.state.median}')
+        .then(res => {
+            this.setState({ quiz: res.data });
+        })
     }
     
     render () {
         return (
-            <p>Here's a quiz! 
-            Median is {this.state.median}</p>
+            <p>Here's a quiz! <br/>
+            Median is {this.state.median} <br/>
+            Quiz is for {this.state.quiz.word}</p>
         )
     }
 }
