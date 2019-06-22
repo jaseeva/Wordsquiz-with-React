@@ -56,10 +56,11 @@ var db = new sqlite3.Database('./test.db', (err) => {
     return median = arr[i]
   }
 
-  app.get('/median', function (req, res, next) {
+  app.get('/quiz', function (req, res, next) {
+    //need to select random words which have rating less than median limit 10
     let rates = []
-    const sql = "SELECT learned_rating from words GROUP BY learned_rating ORDER BY learned_rating ASC"
-    db.all(sql, [], (err, rows) => {
+    const sql_m = "SELECT learned_rating from words GROUP BY learned_rating ORDER BY learned_rating ASC"
+    db.all(sql_m, [], (err, rows) => {
       if (err) {
         res.status(400).json({"error":err.message});
         return;
@@ -67,21 +68,15 @@ var db = new sqlite3.Database('./test.db', (err) => {
       rows.forEach(el => {
         rates.push(el.learned_rating)
       })
-      res.json(countMedian(rates));
-      //console.log(`res: `, res)
-    });
-  })
-
-  app.get('/quiz', function (req, res, next) {
-    //need to select random words which have rating less than median limit 10
-    median = req.query.m
-    const sql = "SELECT * FROM words WHERE learned_rating < "+median+" ORDER BY random() limit 5"
-    db.all(sql, [], (err, rows) => {
-      if (err) {
-        res.status(400).json({"error":err.message});
-        return;
-      }
-      res.json(rows);
+      median = countMedian(rates)
+      const sql = "SELECT * FROM words WHERE learned_rating < "+median+" ORDER BY random() limit 5"
+      db.all(sql, [], (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json(rows);
+      });
     });
   });
    

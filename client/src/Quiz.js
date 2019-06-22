@@ -1,23 +1,17 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import QuizItem from './QuizItem';
 
 class Quiz extends Component {
     constructor(){
       super()
       this.state = {
-        median: 0,
         quiz: []
       };
     }
   
     componentDidMount() {
-        axios.get('/median')
-        .then(res => {
-            console.log(`res_: `, res);
-            this.setState({ median: res.data });
-        })
-
-        axios.get('/quiz?m={this.state.median}')
+        axios.get('/quiz')
         .then(res => {
             this.setState({ quiz: res.data });
         })
@@ -25,9 +19,18 @@ class Quiz extends Component {
     
     render () {
         return (
-            <p>Here's a quiz! <br/>
-            Median is {this.state.median} <br/>
-            Quiz is for {this.state.quiz.word}</p>
+            <div className="quiz-content">
+                <table>
+                    <tbody>
+                    {this.state.quiz.map(word =>
+                        <tr key={word.id}>
+                            <QuizItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} />
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
+                <button type="submit">Done!</button>
+            </div>
         )
     }
 }
