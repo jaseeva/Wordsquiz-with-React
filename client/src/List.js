@@ -19,7 +19,7 @@ class List extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="list-page">
         <header className="App-header">
           <h1 className="App-title">Words List</h1>
         </header>

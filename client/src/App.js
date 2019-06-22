@@ -1,11 +1,28 @@
 import React from 'react';
-import Page from "./Page";
+import {
+  Route,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
+import List from './List';
+import Quiz from './Quiz';
 
 function App () {
   return (
-    <div className="App">
-      <Page page="main" />
-    </div>
+    <HashRouter>
+      <div className="App">
+        <div className="navigation">
+          <ul className="nav-buttons">
+            <li><NavLink to="/quiz">Start Quiz</NavLink></li>
+            <li><NavLink to="/list">Word List</NavLink></li>
+          </ul>
+        </div>
+        <div className="page-content">
+          <Route path="/quiz" component={Quiz}/>
+          <Route path="/list" component={List}/>
+        </div>
+      </div>
+    </HashRouter>
   );
 }
     
