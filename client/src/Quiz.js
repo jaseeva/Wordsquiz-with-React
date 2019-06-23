@@ -7,7 +7,6 @@ class Quiz extends Component {
       super()
       this.state = {
         quiz: [],
-        answers: []
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -19,33 +18,55 @@ class Quiz extends Component {
         .then(res => {
             this.setState({ quiz: res.data });
         })
+        // .then(res => {
+        //     const arr = []
+        //     this.state.quiz.map(word => {
+        //         const item = {id: word.id, answer: ""}
+        //         arr.push(item)
+        //         console.log(`arr: `, arr)
+        //     })
+        //     this.setState({answers: arr})
+        // })
     }
 
     // the problem is that I can't set an answer connected to a certain word, and get answer saved after every key input.
     // try merging in object or google how to submit a form and get all values from it
     handleChange(id, answer) {
-        let newAnswer = [{id : id, answer: answer}]
-        this.setState({answers: [...this.state.answers, newAnswer]});
+        let key = id
+        this.setState(prevState => ({
+            quiz: prevState.quiz.map(el => 
+                el.id === key ? { ...el, answer: answer } : el
+            )
+        }))
+        // let newAnswer = Object.assign({}, this.state.answers, {id: key, answer:answer});
+        // this.setState({answers: newAnswer});
     }
 
     handleSubmit(event) {
-        alert('Answers: ' + this.state.answers);
         event.preventDefault();
+        // const id = event.target.id
+        // const answer = event.target.answer
+        // const item = [{id : id, answer: answer}]
+        // this.setState({answers: [...this.state.answers, item]})
+
+        //     axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
+        //   .then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        //   })
     }
     
     render () {
         return (
             <div className="quiz-content">
-                <table>
-                    <tbody>
+                <form onSubmit={this.handleSubmit} >
                     {this.state.quiz.map(word =>
-                        <tr key={word.id}>
+                        <div key={word.id}>
                             <QuizItem word={word.word} id={word.id} onChange={this.handleChange} />
-                        </tr>
+                        </div>
                     )}
-                    </tbody>
-                </table>
-                <button type="submit" onSubmit={this.handleSubmit} >Done!</button>
+                    <input type="submit" value="Done!" />
+                </form>
             </div>
         )
     }

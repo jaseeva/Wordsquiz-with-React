@@ -13,8 +13,8 @@ class QuizItem extends Component {
     render () {
         return (
         <div className="quiz-item">
-            <td>{this.props.word}</td>
-            <td><input type="text" value={this.props.answer} id={this.props.id} onChange={this.handleChange}/></td>
+            <label>{this.props.word}</label>
+            <input type="text" id={this.props.id} onChange={this.handleChange} />
         </div>
         )
     }
