@@ -22,6 +22,7 @@ class Quiz extends Component {
     }
 
     // the problem is that I can't set an answer connected to a certain word, and get answer saved after every key input.
+    // try merging in object or google how to submit a form and get all values from it
     handleChange(id, answer) {
         let newAnswer = [{id : id, answer: answer}]
         this.setState({answers: [...this.state.answers, newAnswer]});
