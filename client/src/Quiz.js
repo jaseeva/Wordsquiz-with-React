@@ -6,8 +6,12 @@ class Quiz extends Component {
     constructor(){
       super()
       this.state = {
-        quiz: []
-      };
+        quiz: [],
+        answers: []
+      }
+
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
   
     componentDidMount() {
@@ -15,6 +19,17 @@ class Quiz extends Component {
         .then(res => {
             this.setState({ quiz: res.data });
         })
+    }
+
+    // the problem is that I can't set an answer connected to a certain word, and get answer saved after every key input.
+    handleChange(id, answer) {
+        let newAnswer = [{id : id, answer: answer}]
+        this.setState({answers: [...this.state.answers, newAnswer]});
+    }
+
+    handleSubmit(event) {
+        alert('Answers: ' + this.state.answers);
+        event.preventDefault();
     }
     
     render () {
@@ -24,12 +39,12 @@ class Quiz extends Component {
                     <tbody>
                     {this.state.quiz.map(word =>
                         <tr key={word.id}>
-                            <QuizItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} />
+                            <QuizItem word={word.word} id={word.id} onChange={this.handleChange} />
                         </tr>
                     )}
                     </tbody>
                 </table>
-                <button type="submit">Done!</button>
+                <button type="submit" onSubmit={this.handleSubmit} >Done!</button>
             </div>
         )
     }
