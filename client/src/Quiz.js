@@ -7,6 +7,7 @@ class Quiz extends Component {
       super()
       this.state = {
         quiz: [],
+        answers: []
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -32,14 +33,21 @@ class Quiz extends Component {
     // the problem is that I can't set an answer connected to a certain word, and get answer saved after every key input.
     // try merging in object or google how to submit a form and get all values from it
     handleChange(id, answer) {
-        let key = id
-        this.setState(prevState => ({
-            quiz: prevState.quiz.map(el => 
-                el.id === key ? { ...el, answer: answer } : el
-            )
-        }))
+        // let key = id
+        // this.setState(prevState => ({
+        //     quiz: prevState.quiz.map(el => 
+        //         el.id === key ? { ...el, answer: answer } : el
+        //     )
+        // }))
+        this.addAnswer(id, answer)
         // let newAnswer = Object.assign({}, this.state.answers, {id: key, answer:answer});
         // this.setState({answers: newAnswer});
+    }
+
+    addAnswer(id, answer) {
+        const a = [...this.state.answers, {id: id, answer: answer}]
+        this.setState({answers: a})
+
     }
 
     handleSubmit(event) {
