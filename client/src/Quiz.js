@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import QuizItem from './QuizItem';
 
 function Quiz () {
     const [quiz, setQuiz] = useState([])
+    const [done, setDone] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,16 +22,19 @@ function Quiz () {
         setQuiz(arr)
     }
 
+    const postData = async () => {
+        await axios.post(`/result`, { quiz })
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        //     axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
-        //   .then(res => {
-        //     console.log(res);
-        //     console.log(res.data);
-        //   })
+        postData()
+        setDone(true)
     }
     
     return (
+        <React.Fragment>
+        {done ? <Redirect to="/results" /> : null}
         <div className="quiz-content">
             <form onSubmit={handleSubmit} >
                 {quiz.map(word =>
@@ -40,6 +45,7 @@ function Quiz () {
                 <input type="submit" value="Done!" />
             </form>
         </div>
+        </React.Fragment>
     )
 }
 
