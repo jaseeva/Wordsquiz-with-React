@@ -35,17 +35,15 @@ function List () {
         </header>
         {isError && <div>Something went wrong ...</div>}
         <table>
-          <thead>
+          <tr>
             <th>Word</th>
             <th>Translation</th>
             <th>Rating</th>
             <th>Last answered</th>
-          </thead>
-          <tbody>
+          </tr>
             {data.map(word =>
               <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
             )}
-          </tbody>
         </table>
       </div>
     );
