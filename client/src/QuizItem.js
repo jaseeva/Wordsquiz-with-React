@@ -1,23 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class QuizItem extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-    }
-    
-    handleChange(e) {
-        this.props.onChange(e.target.id, e.target.value);
+function QuizItem ({word, id, onChange}) {
+    const handleChange = (e) => {
+        onChange(e.target.id, e.target.value);
     }
 
-    render () {
-        return (
+    return (
         <div className="quiz-item">
-            <label>{this.props.word}</label>
-            <input type="text" id={this.props.id} onChange={this.handleChange} />
+            <label>{word}</label>
+            <input type="text" id={id} onChange={handleChange} />
         </div>
-        )
-    }
+    )
 }
 
 export default QuizItem;
