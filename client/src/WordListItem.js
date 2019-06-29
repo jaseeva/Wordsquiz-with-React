@@ -11,7 +11,7 @@ function WordListItem ({
         <td>{word}</td>
         <td>{translation}</td>
         <td>{rating}</td>
-        <td>{date ? {date} : 'not answered'}</td>
+        <td>{date ? date : 'not answered'}</td>
     </React.Fragment>
     )
 }

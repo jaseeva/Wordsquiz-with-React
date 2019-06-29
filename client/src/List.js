@@ -21,32 +21,25 @@ function List () {
     fetchData();
   },[]);
 
-  // componentDidMount() {
-  //   axios.get('/list')
-  //     .then(res => {
-  //       this.setState({ items: res.data });
-  //     });
-  // }
-
-    return (
-      <div className="list-page">
-        <header className="App-header">
-          <h1 className="App-title">Words List</h1>
-        </header>
-        {isError && <div>Something went wrong ...</div>}
-        <table>
-          <tr>
-            <th>Word</th>
-            <th>Translation</th>
-            <th>Rating</th>
-            <th>Last answered</th>
-          </tr>
-            {data.map(word =>
-              <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
-            )}
-        </table>
-      </div>
-    );
+  return (
+    <div className="list-page">
+      <header className="App-header">
+        <h1 className="App-title">Words List</h1>
+      </header>
+      {isError && <div>Something went wrong ...</div>}
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>Translation</th>
+          <th>Rating</th>
+          <th>Last answered</th>
+        </tr>
+          {data.map(word =>
+            <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
+          )}
+      </table>
+    </div>
+  );
 }
 
 export default List;

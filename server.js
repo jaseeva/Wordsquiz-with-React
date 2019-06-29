@@ -1,6 +1,9 @@
 const express = require('express');
+var bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 5000;
+
+app.use(bodyParser.json())
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -50,10 +53,11 @@ var db = new sqlite3.Database('./test.db', (err) => {
     let i;
     if ((arr.length % 2) === 1) {
       i = Math.floor(arr.length / 2)
+      return median = arr[i]
     } else { 
       i = (arr[arr.length / 2] + arr[arr.length / 2 + 1]) / 2 - 1
+      return median = i
     }
-    return median = arr[i]
   }
 
   app.get('/quiz', function (req, res, next) {
@@ -69,13 +73,34 @@ var db = new sqlite3.Database('./test.db', (err) => {
         rates.push(el.learned_rating)
       })
       median = countMedian(rates)
-      const sql = "SELECT * FROM words WHERE learned_rating < "+median+" ORDER BY random() limit 5"
+      //console.log(`median: `, median)
+      const sql = "SELECT * FROM words WHERE learned_rating <= "+median+" ORDER BY random() limit 5"
       db.all(sql, [], (err, rows) => {
         if (err) {
           res.status(400).json({"error":err.message});
           return;
         }
         res.json(rows);
+      });
+    });
+  });
+
+  app.patch('/results', function (req, res, next) {
+    var data = {
+      id: req.body.el.id,
+      correct: req.body.el.correct,
+    }
+    var rate = 0
+    if (data.correct == true) {rate = 1}
+    var sql ='UPDATE words SET last_answered=DATETIME("now"), learned_rating=learned_rating+? WHERE id=?'
+    var params =[rate, data.id]
+    db.run(sql, params, (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json({
+        message: "data updated"
       });
     });
   });

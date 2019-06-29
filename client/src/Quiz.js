@@ -22,13 +22,18 @@ function Quiz () {
         setQuiz(arr)
     }
 
-    const postData = async () => {
-        await axios.post(`/result`, { quiz })
+    const updateData = async () => {
+        quiz.forEach(el => {
+            let correct = false
+            if (el.translation === el.answer) {correct = true}
+            el = {...el, correct}
+            axios.patch(`/results`, { el })
+        });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        postData()
+        updateData()
         setDone(true)
     }
     
