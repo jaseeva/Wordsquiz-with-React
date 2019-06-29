@@ -8,15 +8,16 @@ function ResultItem ({
 }) { 
     return (
     <React.Fragment>
-        {correct ?
+        {correct 
+        ? (
             <div className="result-correct">
                 {word} - {answer} 
             </div> 
-        :
+        ) : (
             <div className="result-wrong">
                 {word} - <div className="user-answer">{answer}</div> - {translation}
             </div>
-        }
+        )}
     </React.Fragment>
     )
 }

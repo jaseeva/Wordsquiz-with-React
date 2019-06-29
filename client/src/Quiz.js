@@ -11,7 +11,11 @@ function Quiz () {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.get('/quiz')
-            await setQuiz(result.data)
+            const words = result.data
+            words.forEach(el => {
+                el.correct = false
+            });
+            await setQuiz(words)
         }
         fetchData()
     },[])
@@ -20,14 +24,13 @@ function Quiz () {
         const arr = [...quiz]
         let obj = arr.find(obj => obj.id == word_id);
         obj.answer = ans
+        if (obj.answer === obj.translation) {obj.correct = true}
         setQuiz(arr)
     }
 
     const updateData = async () => {
-        quiz.forEach(el => {
-            let correct = false
-            if (el.translation === el.answer) {correct = true}
-            el = {...el, correct}
+        const newQuiz = [...quiz]
+        newQuiz.forEach(el => {
             axios.patch(`/results`, { el })
         });
     }
@@ -41,9 +44,9 @@ function Quiz () {
     return (
         <React.Fragment>
         {done 
-        ? 
-            <Redirect to="/results" /> 
-        :
+        ? (
+            <ResultsPage data={quiz} />
+        ) : (
             <div className="quiz-content">
                 <form onSubmit={handleSubmit} >
                     {quiz.map(word =>
@@ -54,7 +57,7 @@ function Quiz () {
                     <input type="submit" value="Done!" />
                 </form>
             </div>
-        }
+        )}
         </React.Fragment>
     )
 }
