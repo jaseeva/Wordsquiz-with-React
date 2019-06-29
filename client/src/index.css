@@ -22,3 +22,11 @@ ul.nav-buttons li a {
 div.page-content {
   padding: 20px;
 }
+
+td.result-correct {
+  border-color: green
+}
+
+td.result-wrong {
+  border-color: red
+}

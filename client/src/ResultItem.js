@@ -10,13 +10,13 @@ function ResultItem ({
     <React.Fragment>
         {correct 
         ? (
-            <div className="result-correct">
+            <td className="result-correct">
                 {word} - {answer} 
-            </div> 
+            </td> 
         ) : (
-            <div className="result-wrong">
-                {word} - <div className="user-answer">{answer}</div> - {translation}
-            </div>
+            <td className="result-wrong">
+                {word} - {answer ? (<div className="user-answer">{answer}</div>) : "not answered" } - {translation}
+            </td>
         )}
     </React.Fragment>
     )

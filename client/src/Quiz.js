@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Redirect, Route} from 'react-router-dom';
+//import {Redirect, Route} from 'react-router-dom';
 import axios from 'axios';
 import QuizItem from './QuizItem';
 import ResultsPage from './ResultsPage';

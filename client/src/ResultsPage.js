@@ -4,10 +4,11 @@ import ResultItem from './ResultItem';
 function ResultsPage ({data}) { 
     return (
     <React.Fragment>
+        <table>
         {data.map(word =>
-            <div key={word.id}><ResultItem word={word.word} answer={word.answer} translation={word.translation} correct={word.correct} /></div>
+            <tr key={word.id} className="result" ><ResultItem word={word.word} answer={word.answer} translation={word.translation} correct={word.correct} /></tr>
         )}
-        {console.log(`data: `, data)}
+        </table>
     </React.Fragment>
     )
 }
