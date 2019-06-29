@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import axios from 'axios';
 import QuizItem from './QuizItem';
+import ResultsPage from './ResultsPage';
 
 function Quiz () {
     const [quiz, setQuiz] = useState([])
@@ -39,17 +40,21 @@ function Quiz () {
     
     return (
         <React.Fragment>
-        {done ? <Redirect to="/results" /> : null}
-        <div className="quiz-content">
-            <form onSubmit={handleSubmit} >
-                {quiz.map(word =>
-                    <div key={word.id}>
-                        <QuizItem word={word.word} id={word.id} onChange={handleChange} />
-                    </div>
-                )}
-                <input type="submit" value="Done!" />
-            </form>
-        </div>
+        {done 
+        ? 
+            <Redirect to="/results" /> 
+        :
+            <div className="quiz-content">
+                <form onSubmit={handleSubmit} >
+                    {quiz.map(word =>
+                        <div key={word.id}>
+                            <QuizItem word={word.word} id={word.id} onChange={handleChange} />
+                        </div>
+                    )}
+                    <input type="submit" value="Done!" />
+                </form>
+            </div>
+        }
         </React.Fragment>
     )
 }
