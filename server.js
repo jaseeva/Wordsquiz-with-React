@@ -51,11 +51,12 @@ var db = new sqlite3.Database('./test.db', (err) => {
   function countMedian (arr) {
     let median;
     let i;
+    //console.log(`arr: `, arr)
     if ((arr.length % 2) === 1) {
       i = Math.floor(arr.length / 2)
       return median = arr[i]
     } else { 
-      return median = (arr[arr.length / 2] + arr[arr.length / 2 + 1]) / 2
+      return median = (arr[arr.length / 2 - 1] + arr[arr.length / 2]) / 2
     }
   }
 
