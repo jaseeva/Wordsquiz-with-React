@@ -23,6 +23,10 @@ div.page-content {
   padding: 20px;
 }
 
+tr.result {
+  border: solid 3px
+}
+
 td.result-correct {
   border-color: green
 }

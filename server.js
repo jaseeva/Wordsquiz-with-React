@@ -55,8 +55,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
       i = Math.floor(arr.length / 2)
       return median = arr[i]
     } else { 
-      i = (arr[arr.length / 2] + arr[arr.length / 2 + 1]) / 2
-      return median = i
+      return median = (arr[arr.length / 2] + arr[arr.length / 2 + 1]) / 2
     }
   }
 

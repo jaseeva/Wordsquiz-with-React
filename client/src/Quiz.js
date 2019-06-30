@@ -25,6 +25,7 @@ function Quiz () {
         let obj = arr.find(obj => obj.id == word_id);
         obj.answer = ans
         if (obj.answer === obj.translation) {obj.correct = true}
+        else {obj.correct = false}
         setQuiz(arr)
     }
 
