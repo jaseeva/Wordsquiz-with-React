@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-grid';
 import WordListItem from './WordListItem';
 import axios from 'axios';
 
@@ -22,23 +23,25 @@ function List () {
   },[]);
 
   return (
-    <div className="list-page">
-      <header className="App-header">
-        <h1 className="App-title">Words List</h1>
-      </header>
+    <Container className="list-page">
+      <Row className="page-title">
+        <h1>Words List</h1>
+      </Row>
       {isError && <div>Something went wrong ...</div>}
-      <table>
-        <tr>
-          <th>Word</th>
-          <th>Translation</th>
-          <th>Rating</th>
-          <th>Last answered</th>
-        </tr>
-          {data.map(word =>
-            <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
-          )}
-      </table>
-    </div>
+      <Container className="words-list">
+        <table>
+          <tr>
+            <th>Word</th>
+            <th>Translation</th>
+            <th>Rating</th>
+            <th>Last answered</th>
+          </tr>
+            {data.map(word =>
+              <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
+            )}
+        </table>
+      </Container>
+    </Container>
   );
 }
 

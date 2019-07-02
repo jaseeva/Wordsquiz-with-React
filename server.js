@@ -61,7 +61,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
   }
 
   app.get('/quiz', function (req, res, next) {
-    //need to select random words which have rating less than median limit 10
+    //need to select random words which have rating less than median
     let rates = []
     const sql_m = "SELECT learned_rating from words ORDER BY learned_rating ASC"
     db.all(sql_m, [], (err, rows) => {

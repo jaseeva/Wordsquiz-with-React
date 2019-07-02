@@ -1,28 +1,87 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "Montserrat", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul.nav-buttons li {
-  display: inline;
-  list-style-type: none;
-  margin: 0;
+/* navigation */
+div.navigation {
+  width: 800px; 
+  margin: auto;
 }
 
-ul.nav-buttons li a {
+div.navigation div {
+  padding-right: 0;
+}
+
+div.nav-title {
+  padding-left: 0;
+}
+
+div.nav-item {
+  margin: auto;
+  padding-left: 20;
+}
+
+div.navigation a {
   font-weight: bold;
   padding: 20px;
   display: inline-block;
+  text-decoration: none;
+  border: 2px solid blueviolet;
 }
 
+/* page content */
 div.page-content {
+  padding: 20px;
+  width: 800px;
+  margin: auto;
+  border: 2px solid green;
+}
+
+div.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-title h1 {
+  margin: 0;
+}
+
+/* words list */
+div.words-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
 }
 
+.words-list table {
+  width: 100%;
+  border: 2px solid #ddd;
+  border-collapse: collapse;
+}
+
+.words-list th, td {
+  border-bottom: 1px solid #ddd;
+}
+
+.words-list th {
+  text-align: center;
+  padding: 4px;
+  background-color: grey;
+}
+
+.words-list td {
+  text-align: center;
+  padding: 4px;
+}
+
+/* results table */
 tr.result {
   border: solid 3px
 }
