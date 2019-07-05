@@ -8,7 +8,7 @@ function QuizItem ({word, id, onChange}) {
     return (
         <div className="quiz-item">
             <label>{word}</label>
-            <input type="text" id={id} onChange={handleChange} />
+            <input type="text" id={id} onChange={handleChange} autocomplete="off"/>
         </div>
     )
 }
