@@ -5,11 +5,13 @@ const Result = styled.div`
     width: 50%;
     border: solid 3px;
     padding: 20px 40px;
-    border: 1px solid black;
     margin: 15px auto;
     text-align: center;
+    line-height: 40px;
     background-color: ${props =>
         (props.right ? 'rgba(75, 180, 98, 0.3)' : 'rgba(253, 33, 84, 0.3)')};
+    border: ${props =>
+        (props.right ? '1px solid rgba(75, 180, 98, 0.3)' : '1px solid rgba(253, 33, 84, 0.3)')};
 `;
 
 function ResultItem ({
@@ -23,11 +25,14 @@ function ResultItem ({
         {correct 
         ? (
             <Result right>
-                {word} - {answer} 
+                {word}<br/>
+                {answer} 
             </Result> 
         ) : (
             <Result>
-                {word} - {answer ? (<div className="user-answer">{answer}</div>) : "not answered" } - {translation}
+                {word}<br/>
+                {answer ? (<div className="user-answer">{answer}</div>) : "not answered" }<br/>
+                {translation}
             </Result>
         )}
     </React.Fragment>
