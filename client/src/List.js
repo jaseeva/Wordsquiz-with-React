@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-grid';
+import { Container, Row } from 'react-grid';
 import WordListItem from './WordListItem';
 import axios from 'axios';
 

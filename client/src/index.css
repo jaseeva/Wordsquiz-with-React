@@ -24,6 +24,7 @@ div.nav-title {
 div.nav-item {
   margin: auto;
   padding-left: 20;
+  width: 140px;
 }
 
 div.navigation a {
@@ -31,7 +32,8 @@ div.navigation a {
   padding: 20px;
   display: inline-block;
   text-decoration: none;
-  border: 2px solid blueviolet;
+  border: 2px solid #AE3F7B;
+  color: #AE3F7B;
 }
 
 /* page content */
@@ -39,7 +41,7 @@ div.page-content {
   padding: 20px;
   width: 800px;
   margin: auto;
-  border: 2px solid green;
+  border: 2px solid #FFFCBB;
 }
 
 div.page-title {
@@ -73,7 +75,7 @@ div.words-list {
 .words-list th {
   text-align: center;
   padding: 4px;
-  background-color: grey;
+  background-color: #ddd;
 }
 
 .words-list td {
@@ -81,15 +83,46 @@ div.words-list {
   padding: 4px;
 }
 
+/* quiz */
+.quiz-content {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+}
+
+.quiz-item {
+  padding: 20px 40px;
+  border: 1px solid black;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.quiz-item input {
+  width: 80%;
+  margin-top: 15px;
+  padding: 5px 10px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  font-weight: bold;
+  font-size: 20;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #AE3F7B;
+  color: #AE3F7B;
+  background: white;
+  cursor: pointer;
+}
+
 /* results table */
-tr.result {
-  border: solid 3px
+div.results {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
 }
 
-td.result-correct {
-  border-color: green
-}
-
-td.result-wrong {
-  border-color: red
+.user-answer {
+  text-decoration: line-through;
+  display: inline;
 }
