@@ -1,8 +1,27 @@
 import React, {useEffect, useState} from 'react';
+import styled from 'styled-components';
 //import {Redirect, Route} from 'react-router-dom';
 import axios from 'axios';
 import QuizItem from './QuizItem';
 import ResultsPage from './ResultsPage';
+
+const DoneButton = styled.button`
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Montserrat;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #AE3F7B;
+    color: #AE3F7B;
+    background: white;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #AE3F7B;
+        color: white;
+    }
+`;
 
 function Quiz () {
     const [quiz, setQuiz] = useState([])
@@ -31,9 +50,7 @@ function Quiz () {
 
     const updateData = async () => {
         const newQuiz = [...quiz]
-        newQuiz.forEach(el => {
-            axios.patch(`/results`, { el })
-        });
+        axios.patch('/save_quiz', newQuiz)
     }
 
     const handleSubmit = (event) => {
@@ -55,7 +72,7 @@ function Quiz () {
                             <QuizItem word={word.word} id={word.id} onChange={handleChange} />
                         </div>
                     )}
-                    <input type="submit" value="Done!" />
+                    <DoneButton type="submit">Done!</DoneButton>
                 </form>
             </div>
         )}

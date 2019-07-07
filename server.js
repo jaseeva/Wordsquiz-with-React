@@ -1,5 +1,6 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -85,29 +86,42 @@ var db = new sqlite3.Database('./test.db', (err) => {
     });
   });
 
-  app.patch('/results', function (req, res, next) {
-    var data = {
-      id: req.body.el.id,
-      correct: req.body.el.correct,
-    }
-    var rate = 0
-    if (data.correct == true) {rate = 1}
-    var sql ='UPDATE words SET last_answered=DATETIME("now"), learned_rating=learned_rating+? WHERE id=?'
-    var params =[rate, data.id]
-    db.run(sql, params, (err, rows) => {
-      if (err) {
-        res.status(400).json({"error":err.message});
-        return;
+  app.patch('/save_quiz', function (req, res, next) {
+    // console.log(`req.body: `, req.body)
+    var d = moment().format('YYYY-MM-DD H:mm:ss');
+    req.body.forEach(el => {
+      var data = {
+        id: el.id,
+        correct: el.correct,
       }
-      res.json({
-        message: "data updated"
+
+      var rate = 0
+      if (data.correct == true) {rate = 1}
+
+      var sql =`UPDATE words SET 
+      learned_rating=learned_rating+?,
+      last_answered=?, 
+      last_result=?
+      WHERE id=?`
+      var params =[rate, d, rate, data.id]
+      
+      db.run(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+          message: "data updated"
+        });
       });
     });
   });
    
-  // db.close((err) => {
-  //   if (err) {
-  //     console.error(err.message);
-  //   }
-  //   console.log('Close the database connection.');
-  // });
+  // function closeDB(){
+  //   db.close((err) => {
+  //     if (err) {
+  //       console.error(err.message);
+  //     }
+  //     console.log('Close the database connection.');
+  //   });
+  // }

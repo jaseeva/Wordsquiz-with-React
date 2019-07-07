@@ -36,6 +36,11 @@ div.navigation a {
   color: #AE3F7B;
 }
 
+div.navigation a:hover {
+  background-color: #AE3F7B;
+  color: white;
+}
+
 /* page content */
 div.page-content {
   padding: 20px;
@@ -102,18 +107,6 @@ div.words-list {
   margin-top: 15px;
   padding: 5px 10px;
   text-align: center;
-}
-
-input[type="submit"] {
-  width: 100%;
-  font-weight: bold;
-  font-size: 16px;
-  margin: auto;
-  padding: 20px;
-  border: 2px solid #AE3F7B;
-  color: #AE3F7B;
-  background: white;
-  cursor: pointer;
 }
 
 /* results table */
