@@ -89,6 +89,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
   app.patch('/save_quiz', function (req, res, next) {
     // console.log(`req.body: `, req.body)
     var d = moment().format('YYYY-MM-DD H:mm:ss');
+    db.run(`BEGIN TRANSACTION;`);
     req.body.forEach(el => {
       var data = {
         id: el.id,
@@ -105,15 +106,13 @@ var db = new sqlite3.Database('./test.db', (err) => {
       WHERE id=?`
       var params =[rate, d, rate, data.id]
       
-      db.run(sql, params, (err, rows) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
-        }
-        res.json({
-          message: "data updated"
-        });
-      });
+      db.run(sql, params)
+    });
+    db.run(`COMMIT;`, (err) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
     });
   });
    
