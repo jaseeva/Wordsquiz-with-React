@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-grid';
-import { Route, NavLink, HashRouter } from "react-router-dom";
+import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
 import List from './List';
 import Quiz from './Quiz';
 import ResultsPage from './ResultsPage';
@@ -15,9 +15,11 @@ function App () {
             <Col md='auto' className="nav-item"><NavLink to="/list">Word List</NavLink></Col>
           </Row>
           <Container className="page-content">
-            <Route path="/quiz" component={Quiz}/>
-            <Route path="/list" component={List}/>
-            <Route path="/results" component={ResultsPage}/>
+            <Switch>
+              <Route path="/quiz" component={Quiz}/>
+              <Route path="/list" component={List}/>
+              <Route path="/results" component={ResultsPage}/>
+            </Switch>
           </Container>
         </Container>
       </HashRouter>
