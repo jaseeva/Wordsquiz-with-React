@@ -113,6 +113,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
         res.status(400).json({"error":err.message});
         return;
       }
+      res.json({"message":"Data updated"})
     });
   });
    
