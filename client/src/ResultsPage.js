@@ -1,7 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import ResultItem from './ResultItem';
 
-function ResultsPage ({data}) { 
+const ResultsPage = (props) => { 
+    const data = props.location.state.quiz
+    //console.log(`props: `, props)
     return (
     <React.Fragment>
         <div className="results-page">
@@ -18,4 +21,4 @@ function ResultsPage ({data}) {
     )
 }
 
-export default ResultsPage;
+export default withRouter(ResultsPage);

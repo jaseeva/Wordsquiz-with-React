@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-//import {Redirect, Route} from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import QuizItem from './QuizItem';
-import ResultsPage from './ResultsPage';
 
 const DoneButton = styled.button`
     width: 100%;
@@ -23,7 +22,7 @@ const DoneButton = styled.button`
     }
 `;
 
-function Quiz () {
+const Quiz = (props) => {
     const [quiz, setQuiz] = useState([])
     const [done, setDone] = useState(false)
 
@@ -60,10 +59,10 @@ function Quiz () {
     }
     
     return (
-        <React.Fragment>
+      <React.Fragment>
         {done 
         ? (
-            <ResultsPage data={quiz} />
+            <Redirect to={{pathname: "/results", state: {quiz}}} />
         ) : (
             <div className="quiz-content">
                 <form onSubmit={handleSubmit} >
@@ -76,8 +75,8 @@ function Quiz () {
                 </form>
             </div>
         )}
-        </React.Fragment>
+      </React.Fragment>
     )
 }
 
-export default Quiz;
+export default withRouter(Quiz);

@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-grid';
 import { Route, NavLink, HashRouter } from "react-router-dom";
 import List from './List';
 import Quiz from './Quiz';
+import ResultsPage from './ResultsPage';
 
 function App () {
     return (
@@ -16,6 +17,7 @@ function App () {
           <Container className="page-content">
             <Route path="/quiz" component={Quiz}/>
             <Route path="/list" component={List}/>
+            <Route path="/results" component={ResultsPage}/>
           </Container>
         </Container>
       </HashRouter>
