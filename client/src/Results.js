@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ResultItem from './ResultItem';
 
-const ResultsPage = (props) => { 
+const Results = (props) => { 
     const data = props.location.state.quiz
     //console.log(`props: `, props)
     return (
@@ -21,4 +21,4 @@ const ResultsPage = (props) => {
     )
 }
 
-export default withRouter(ResultsPage);
+export default withRouter(Results);
