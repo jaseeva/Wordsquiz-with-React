@@ -18,7 +18,7 @@ div.navigation div {
 }
 
 div.nav-title {
-  padding-left: 0;
+  padding-left: 0px;
 }
 
 div.nav-item {
@@ -27,7 +27,7 @@ div.nav-item {
   width: 140px;
 }
 
-div.navigation a {
+div.nav-item a {
   font-weight: bold;
   padding: 20px;
   display: inline-block;
@@ -36,7 +36,7 @@ div.navigation a {
   color: #AE3F7B;
 }
 
-div.navigation a:hover {
+div.nav-item a:hover {
   background-color: #AE3F7B;
   color: white;
 }
