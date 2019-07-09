@@ -89,6 +89,8 @@ var db = new sqlite3.Database('./test.db', (err) => {
   app.patch('/save_quiz', function (req, res, next) {
     // console.log(`req.body: `, req.body)
     var d = moment().format('YYYY-MM-DD H:mm:ss');
+    var cor = 0
+    var wro = 0
     db.run(`BEGIN TRANSACTION;`);
     req.body.forEach(el => {
       var data = {
@@ -97,17 +99,25 @@ var db = new sqlite3.Database('./test.db', (err) => {
       }
 
       var rate = 0
-      if (data.correct == true) {rate = 1}
+      if (data.correct == true) {
+        rate = 1
+        cor = cor + 1
+      } else { wro = wro + 1 }
 
       var sql =`UPDATE words SET 
       learned_rating=learned_rating+?,
       last_answered=?, 
       last_result=?
       WHERE id=?`
-      var params =[rate, d, rate, data.id]
+      var params = [rate, d, rate, data.id]
       
       db.run(sql, params)
     });
+    
+    var sql_h = `INSERT INTO history(quiz_date, answered_correct, answered_wrong) VALUES(?, ?, ?)`
+    var params_h = [d, cor, wro]
+    db.run(sql_h, params_h)
+
     db.run(`COMMIT;`, (err) => {
       if (err) {
         res.status(400).json({"error":err.message});
