@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { PieChart, Pie, Sector, Cell, BarChart, Bar, XAxis, YAxis, } from 'recharts';
+import { PieChart, Pie, Sector, Cell, BarChart, Bar, XAxis, } from 'recharts';
 
 const COLORS = ['#2CA18C', '#C14364']; 
 
@@ -80,6 +80,7 @@ const Dashboard = () => {
                     <PieChart width={250} height={150} className="pie">
                     <Pie
                     data={last} 
+                    dataKey="value"
                     cx='50%'
                     cy='75%' 
                     startAngle={180}
@@ -90,7 +91,7 @@ const Dashboard = () => {
                     paddingAngle={5}
                     >
                       {
-                        last.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                        last.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
                       }
                     </Pie>
                   </PieChart>
