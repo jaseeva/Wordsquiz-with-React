@@ -5,58 +5,64 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #F7F6EE;
+  /* background: #FEE5A5; */
 }
 
 /* navigation */
-div.navigation {
-  width: 800px; 
-  margin: auto;
+.navigation {
+  /* width: 800px; */
+  margin: 0; 
+  border-block-end: 2px solid #486D87;
 }
 
-div.navigation div {
+.navigation div {
   padding-right: 0;
 }
 
-div.nav-title {
-  padding-left: 0px;
-}
-
-div.nav-item {
+.nav-item {
   margin: auto;
   padding-left: 20;
-  width: 140px;
+  padding-top: 8px;
+  /* width: 140px; */
 }
 
-div.nav-item a {
+.nav-item a {
   font-weight: bold;
-  padding: 20px;
+  font-size: 18px;
+  padding: 15px;
   display: inline-block;
   text-decoration: none;
-  border: 2px solid #AE3F7B;
-  color: #AE3F7B;
+  /* border: 2px solid #486D87; */
+  color: #486D87;
 }
 
-div.nav-item a:hover {
-  background-color: #AE3F7B;
+.nav-item a:hover {
+  background-color: #486D87;
   color: white;
 }
 
 /* page content */
-div.page-content {
-  padding: 20px;
-  width: 800px;
+.page-content {
+  padding: 40px 20px;
+  /* width: 800px; */
   margin: auto;
-  border: 2px solid #FFFCBB;
+  /* border: 2px solid #486D87; */
 }
 
-div.page-title {
+.page-title {
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-bottom: 10px;
 }
 
 .page-title h1 {
   margin: 0;
+}
+
+.shadow-box {
+  background: white;
+  box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5);
 }
 
 /* words list */
@@ -92,13 +98,14 @@ div.words-list {
 .quiz-content {
   margin: 0 auto;
   width: 50%;
+  overflow: hidden;
   text-align: center;
 }
 
 .quiz-item {
   padding: 20px 40px;
-  border: 1px solid black;
-  margin: 15px 0;
+  /* border: 1px solid black; */
+  margin: 5% ;
   text-align: center;
 }
 
@@ -110,23 +117,44 @@ div.words-list {
 }
 
 /* results table */
-div.results {
+.results {
   margin: 0 auto;
   width: 100%;
   text-align: center;
 }
 
-.user-answer {
-  text-decoration: line-through;
-  display: inline;
+/* dashboard */
+.chart {
+  overflow: hidden;
+  padding-bottom: 10px;
+  padding: 40px;
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: table;
 }
 
-/* dashboard */
-div.charts div{
-  display: inline-block;
+.chart .pie {
+  margin: 0 auto;
+  float: left;
+}
+
+.wrap-comment {
+  float: left;
+  width: 250px;
+}
+
+.chart .pie-comment {
+  text-align: center;
+  float: left;
+}
+
+.bar {
   margin: auto;
 }
 
-div.pie-comment {
-  position: relative;
+.bar-comment {
+  width: 50%;
+  margin: auto;
+  text-align: center;
 }

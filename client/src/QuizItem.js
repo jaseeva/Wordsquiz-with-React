@@ -6,10 +6,10 @@ const QuizItem = ({word, id, onChange}) => {
     }
 
     return (
-        <div className="quiz-item">
-            <label>{word}</label>
+        <React.Fragment>
+            <label>{word}</label><br/>
             <input type="text" id={id} onChange={handleChange} autoComplete="off"/>
-        </div>
+        </React.Fragment>
     )
 }
 

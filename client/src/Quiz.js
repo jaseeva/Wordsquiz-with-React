@@ -5,19 +5,19 @@ import axios from 'axios';
 import QuizItem from './QuizItem';
 
 const DoneButton = styled.button`
-    width: 100%;
+    width: 90%;
     font-weight: bold;
     font-size: 16px;
     font-family: Montserrat;
     margin: auto;
     padding: 20px;
-    border: 2px solid #AE3F7B;
-    color: #AE3F7B;
-    background: white;
+    border: 2px solid #486D87;
+    background: #F7F6EE;
+    color: #486D87;
     cursor: pointer;
 
     &:hover {
-        background-color: #AE3F7B;
+        background-color: #486D87;
         color: white;
     }
 `;
@@ -65,9 +65,12 @@ const Quiz = (props) => {
             <Redirect to={{pathname: "/results", state: {quiz}}} />
         ) : (
             <div className="quiz-content">
+                {/* <div className="page-title">
+                    <h1>Quiz</h1>
+                </div> */}
                 <form onSubmit={handleSubmit} >
                     {quiz.map(word =>
-                        <div key={word.id}>
+                        <div className="quiz-item shadow-box" key={word.id}>
                             <QuizItem word={word.word} id={word.id} onChange={handleChange} />
                         </div>
                     )}

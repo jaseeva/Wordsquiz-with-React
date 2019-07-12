@@ -28,7 +28,7 @@ function List () {
         <h1>Words List</h1>
       </Row>
       {isError && <div>Something went wrong ...</div>}
-      <Container className="words-list">
+      <Container className="words-list shadow-box">
         <table>
           <tr>
             <th>Word</th>
