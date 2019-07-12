@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Word from './Word';
 
 const Result = styled.div`
     width: 50%;
@@ -14,10 +15,10 @@ const Result = styled.div`
         (props.right ? '1px solid rgba(75, 180, 98, 0.3)' : '1px solid rgba(253, 33, 84, 0.3)')};
 `;
 
-const Word = styled.text`
-    font-weight: bold;
-    font-size: larger;
-`;
+// const Word = styled.text`
+//     font-weight: bold;
+//     font-size: larger;
+// `;
 
 const Translation = styled.text`
     font-style: italic;
@@ -29,23 +30,23 @@ const UserAnswerIncorrect = styled.text`
 `;
 
 
-function ResultItem ({
+const ResultItem = ({
     word,
     answer,
     translation,
     correct
-}) { 
+}) => { 
     return (
     <React.Fragment>
         {correct 
         ? (
             <Result right>
-                <Word>{word}</Word><br/>
+                <Word text={word} /><br/>
                 <Translation>{answer}</Translation> 
             </Result> 
         ) : (
             <Result>
-                <Word>{word}</Word><br/>
+                <Word text={word} /><br/>
                 {answer ? (<UserAnswerIncorrect>{answer}</UserAnswerIncorrect>) : "not answered" }<br/>
                 <Translation>{translation}</Translation>
             </Result>

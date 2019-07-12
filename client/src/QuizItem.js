@@ -1,4 +1,5 @@
 import React from 'react';
+import Word from './Word';
 
 const QuizItem = ({word, id, onChange}) => {
     const handleChange = (e) => {
@@ -7,7 +8,7 @@ const QuizItem = ({word, id, onChange}) => {
 
     return (
         <React.Fragment>
-            <label>{word}</label><br/>
+            <Word text={word} /><br/>
             <input type="text" id={id} onChange={handleChange} autoComplete="off"/>
         </React.Fragment>
     )
