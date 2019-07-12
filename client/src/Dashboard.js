@@ -1,11 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { PieChart, Pie, Sector, Cell, BarChart, Bar, XAxis, YAxis, } from 'recharts';
 
 const COLORS = ['#2CA18C', '#C14364']; 
-const data = [{name: 'Correct', value: 4}, {name: 'Wrong', value: 6}]
-const data_bar = [{name: '1', c: 4, w: 6}, {name: '2', c: 8, w: 2}]
 
 const RepeatButton = styled.button`
     width: 100%;
@@ -26,6 +24,50 @@ const RepeatButton = styled.button`
 `;
 
 const Dashboard = () => {
+  const [last, setLast] = useState([])
+  const [history, setHistory] = useState([])
+
+  useEffect(() => {
+    const fetchLast = async () => {
+        const res = await axios.get('/last_quiz')
+        const item = res.data[0]
+        
+        const update = []
+        
+        const cor = {name: 'Correct'}
+        cor.value = item.answered_correct
+        
+        const wro = {name: 'Wrong'}
+        wro.value = item.answered_wrong
+        
+        update.push(cor)
+        update.push(wro)
+        
+        //console.log(`update: `, update)
+        await setLast(update)
+        //console.log(`last: `, last)
+    }
+    const fetchLast10 = async () => {
+      const res = await axios.get('/quiz_history')
+      const quizzes = res.data
+      const stats = []
+      
+      quizzes.forEach(el => {
+        const i = {}
+        i.name = el.quiz_date
+        i.c = el.answered_correct
+        i.w = el.answered_wrong
+        stats.push(i)
+      });
+      
+      //console.log(`stats: `, stats)
+      await setHistory(stats)
+      //console.log(`history: `, history)
+  }
+    fetchLast()
+    fetchLast10()
+  },[])
+
     return (
         <React.Fragment>
             <div className="dashboard-page">
@@ -33,9 +75,11 @@ const Dashboard = () => {
                     <h1>Last quiz</h1>
                 </div>
                 <div className="chart shadow-box">
-                  <PieChart width={250} height={150} className="pie">
+                  {last.length > 0 ? 
+                  (<React.Fragment>
+                    <PieChart width={250} height={150} className="pie">
                     <Pie
-                    data={data} 
+                    data={last} 
                     cx='50%'
                     cy='75%' 
                     startAngle={180}
@@ -46,17 +90,19 @@ const Dashboard = () => {
                     paddingAngle={5}
                     >
                       {
-                        data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                        last.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
                       }
                     </Pie>
                   </PieChart>
                   <div className="wrap-comment"> 
                     <div className="pie-comment">
-                        <p>Correct: {data[0].value}<br/>
-                        Wrong: {data[1].value}</p>
+                        <p>Correct: {last[0].value}<br/>
+                        Wrong: {last[1].value}</p>
                         <RepeatButton>Repeat last quiz</RepeatButton>
                     </div>
                   </div>
+                  </React.Fragment>
+                  ) : (<p>Looks like you haven't done any quizzes yet!</p>)}
                 </div>
                 <div className="page-title">
                   <h1>Performance</h1>
@@ -69,7 +115,7 @@ const Dashboard = () => {
                     className="bar"
                     width={500}
                     height={300}
-                    data={data_bar}
+                    data={history}
                     margin={{
                     top: 20, right: 30, left: 20, bottom: 5,
                     }}

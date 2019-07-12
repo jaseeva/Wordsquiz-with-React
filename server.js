@@ -38,6 +38,27 @@ var db = new sqlite3.Database('./test.db', (err) => {
     res.json({"message":"Ok"})
   });
 
+  app.get("/last_quiz", (req, res, next) => {
+    db.all('SELECT * FROM history ORDER BY quiz_id DESC LIMIT 1;', [], (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json(rows);
+    });
+  })
+
+  app.get("/quiz_history", (req, res, next) => {
+    sql = 'SELECT * FROM (SELECT * FROM history ORDER BY quiz_id DESC LIMIT 10) ORDER BY quiz_id ASC;'
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json(rows);
+    });
+  })
+
   // get the list of all words
   app.get('/list', function (req, res, next) {
     db.all('SELECT * FROM words', [], (err, rows) => {
