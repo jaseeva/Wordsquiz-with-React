@@ -85,10 +85,10 @@ const Dashboard = () => {
                     cy='75%' 
                     startAngle={180}
                     endAngle={0}
-                    innerRadius={60}
+                    innerRadius={40}
                     outerRadius={80} 
                     fill="#8884d8"
-                    paddingAngle={5}
+                    paddingAngle={0}
                     >
                       {
                         last.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
@@ -112,6 +112,7 @@ const Dashboard = () => {
                   <div className="bar-comment">
                       Here you can see your stats for the last 10 quizzes
                   </div>
+                  {history.length > 0 ? (
                   <BarChart
                     className="bar"
                     width={500}
@@ -125,6 +126,9 @@ const Dashboard = () => {
                     <Bar barSize={40} dataKey="c" stackId="a" fill="#2CA18C" />
                     <Bar barSize={40} dataKey="w" stackId="a" fill="#C14364" />
                   </BarChart>
+                  ) : (
+                    <p>No quizzes answered yet :(</p>
+                  )}
                 </div>
             </div>
         </React.Fragment>
