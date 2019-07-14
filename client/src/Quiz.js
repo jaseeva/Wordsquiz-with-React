@@ -25,6 +25,7 @@ const DoneButton = styled.button`
 const Quiz = (props) => {
     const [quiz, setQuiz] = useState([])
     const [done, setDone] = useState(false)
+    console.log(`props: `, props)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,7 +36,20 @@ const Quiz = (props) => {
             });
             await setQuiz(words)
         }
-        fetchData()
+        const fetchLast = async () => {
+            const result = await axios.get('/quiz_repeat')
+            const words = result.data
+            words.forEach(el => {
+                el.correct = false
+            });
+            await setQuiz(words)
+        }
+        const mode = props.location.state
+        if (mode === 'repeat')
+            fetchLast()
+        else
+            fetchData()
+        console.log(`quiz: `, quiz)
     },[])
   
     const handleChange = (word_id, ans) => {

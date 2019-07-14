@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import { PieChart, Pie, Sector, Cell, BarChart, Bar, XAxis, } from 'recharts';
 
 const COLORS = ['#2CA18C', '#C14364']; 
 
-const RepeatButton = styled.button`
+const RepeatButton = styled.a`
     width: 100%;
     font-weight: bold;
     font-size: 16px;
@@ -99,7 +100,7 @@ const Dashboard = () => {
                     <div className="pie-comment">
                         <p>Correct: {last[0].value}<br/>
                         Wrong: {last[1].value}</p>
-                        <RepeatButton>Repeat last quiz</RepeatButton>
+                        <div className='nav-item' ><NavLink to={{pathname: "/quiz", state:'repeat'}}>Repeat last quiz</NavLink></div>
                     </div>
                   </div>
                   </React.Fragment>

@@ -161,6 +161,17 @@ var db = new sqlite3.Database('./test.db', (err) => {
     }
   }
 
+  app.get('/quiz_repeat', function (req, res, next) {
+    const sql = "SELECT * FROM words WHERE last_answered = (SELECT max(last_answered) FROM words); ORDER BY random()"
+    db.all(sql, (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json(rows);
+    })
+  })
+
   app.get('/quiz', function (req, res, next) {
     //need to select random words which have rating less than median
     let rates = []
