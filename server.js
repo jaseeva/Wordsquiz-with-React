@@ -39,18 +39,31 @@ var db = new sqlite3.Database('./test.db', (err) => {
       console.error(err.message);
     }
     console.log('Connected to the test database.');
-    //createTable();
+    createTable();
 });
 
-  // const createTable = () => {
-  //   console.log("create database table words");
-  //   db.run("CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY AUTOINCREMENT, word STRING NOT NULL UNIQUE ON CONFLICT ROLLBACK, translation STRING NOT NULL, learned_rating INT DEFAULT (0), last_answered  DATE);)",  insertData);
-  // }
-
-  // const insertData = () =>{
-  //   console.log("Insert data")
-  //   db.run('INSERT INTO words (word, translation) VALUES (?)', ["verstehen", "understand"]);
-  // }
+  const createTable = () => {
+    console.log("create database tables");
+    db.run(`CREATE TABLE IF NOT EXISTS words (
+      id             INTEGER UNIQUE
+                             NOT NULL
+                             PRIMARY KEY AUTOINCREMENT,
+      word           STRING  NOT NULL
+                             UNIQUE ON CONFLICT ROLLBACK,
+      translation    STRING  NOT NULL,
+      learned_rating INT     DEFAULT (0),
+      last_answered  DATE,
+      last_result    BOOLEAN);`
+    );
+    db.run(`CREATE TABLE IF NOT EXISTS history (
+      quiz_id          INTEGER PRIMARY KEY AUTOINCREMENT
+                               UNIQUE
+                               NOT NULL,
+      quiz_date        DATE    NOT NULL,
+      answered_correct INTEGER DEFAULT (0),
+      answered_wrong   INTEGER DEFAULT (0));`
+    )
+  }
 
   // Root endpoint
   app.get("/", (req, res, next) => {

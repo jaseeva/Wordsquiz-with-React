@@ -17,7 +17,7 @@ const NavTitle = styled.a`
   }
 `;
 
-function App () {
+const App = () => {
     return (
       <HashRouter>
         <Container className="App">
