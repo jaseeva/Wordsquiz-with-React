@@ -1,10 +1,27 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+const csv = require('fast-csv');
+const multer = require('multer');
+const fs = require('fs')
 var moment = require('moment');
+
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json())
+
+// global.__basedir = __dirname;
+
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//   cb(null, 'public')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname )
+//   }
+// })
+
+// var upload = multer({ storage: storage }).single('file')
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -21,7 +38,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
     }
     console.log('Connected to the test database.');
     //createTable();
-  });
+});
 
   // const createTable = () => {
   //   console.log("create database table words");
@@ -67,6 +84,50 @@ var db = new sqlite3.Database('./test.db', (err) => {
         return;
       }
       res.json(rows);
+    });
+  });
+
+  function importFileDataToTable (filePath) {
+    let stream = fs.createReadStream(filePath);
+    let csvData = [];
+    let csvStream = csv
+        .parse()
+        .on("data", function (data) {
+            csvData.push(data);
+        })
+        .on("end", function () {
+            // Remove Header ROW
+            csvData.shift();
+            console.log(`csvData: `, csvData)
+
+            csvData.forEach(el => {
+              console.log(`el: `, el)
+              let sql = 'INSERT INTO words (word, translation) VALUES (?, ?)';
+              db.run(sql, el, (error, response) => {
+                console.log(`sql: `, sql)
+                console.log(error || response);
+              });
+            });
+
+            // delete file after saving to MySQL database
+            // -> you can comment the statement to see the uploaded CSV file.
+			      //fs.unlinkSync(filePath)
+        });
+ 
+    stream.pipe(csvStream);
+  }
+
+  app.post('/upload', function (req, res) {
+    db.run(`BEGIN TRANSACTION;`);
+
+    importFileDataToTable('./files/words.csv')
+
+	  db.run(`COMMIT;`, (err) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json({"message":"Data updated"})
     });
   });
 

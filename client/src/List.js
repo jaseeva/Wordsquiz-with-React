@@ -22,6 +22,11 @@ function List () {
     fetchData();
   },[]);
 
+  const handleClick = () => {
+    const filename = './files/words.csv'
+    axios.post("/upload", filename)
+  }
+
   return (
     <Container className="list-page">
       <Row className="page-title">
@@ -29,6 +34,7 @@ function List () {
       </Row>
       {isError && <div>Something went wrong ...</div>}
       <Container className="words-list shadow-box">
+        <button onClick={handleClick}>Refresh</button>
         <table>
           <tr>
             <th>Word</th>
