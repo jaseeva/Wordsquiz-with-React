@@ -98,14 +98,13 @@ var db = new sqlite3.Database('./test.db', (err) => {
         .on("end", function () {
             // Remove Header ROW
             csvData.shift();
-            console.log(`csvData: `, csvData)
+            //console.log(`csvData: `, csvData)
 
             csvData.forEach(el => {
-              console.log(`el: `, el)
+              //console.log(`el: `, el)
               let sql = 'INSERT INTO words (word, translation) VALUES (?, ?)';
               db.run(sql, el, (error, response) => {
-                console.log(`sql: `, sql)
-                console.log(error || response);
+                //console.log(error || response);
               });
             });
 

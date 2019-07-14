@@ -1,7 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Container, Row } from 'react-grid';
 import WordListItem from './WordListItem';
 import axios from 'axios';
+
+const AddButton = styled.button`
+    float: right;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Montserrat;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border: 2px solid #486D87;
+    background: white;
+    color: #486D87;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #486D87;
+        color: white;
+    }
+`;
 
 function List () {
   const [data, setData] = useState([])
@@ -34,7 +53,7 @@ function List () {
       </Row>
       {isError && <div>Something went wrong ...</div>}
       <Container className="words-list shadow-box">
-        <button onClick={handleClick}>Refresh</button>
+        <AddButton onClick={handleClick}>Add words</AddButton>
         <table>
           <tr>
             <th>Word</th>
