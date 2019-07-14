@@ -68,6 +68,7 @@ function List () {
           <input type='file' accept=".csv" name='newWords' onChange={handleChange} />
           <AddButton type='submit'>Add words</AddButton>
         </form>
+        {data.length > 0 ? (
         <table>
           <tr>
             <th>Word</th>
@@ -79,6 +80,9 @@ function List () {
               <tr key={word.id}><WordListItem word={word.word} translation={word.translation} rating={word.learned_rating} date={word.last_answered} /></tr>
             )}
         </table>
+        ) : (
+          <p>Please upload a .scv file to add some words</p>
+        )}
       </Container>
     </Container>
   );
