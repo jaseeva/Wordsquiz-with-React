@@ -25,6 +25,7 @@ const AddButton = styled.button`
 function List () {
   const [data, setData] = useState([])
   const [isError, setIsError] = useState(false);
+  const [file, setFile] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +42,19 @@ function List () {
     fetchData();
   },[]);
 
-  const handleClick = () => {
-    const filename = './files/words.csv'
-    axios.post("/upload", filename)
+  const handleChange = (event) => {
+    //console.log(`selected: `, event.target.files[0])
+    setFile(event.target.files[0])
+    console.log(`file: `, file)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const data = new FormData();
+    data.append('file', file);
+    console.log(`data: `, data)
+    axios.post("/upload", data)
   }
 
   return (
@@ -53,7 +64,10 @@ function List () {
       </Row>
       {isError && <div>Something went wrong ...</div>}
       <Container className="words-list shadow-box">
-        <AddButton onClick={handleClick}>Add words</AddButton>
+        <form encType="multipart/form-data" className='upload-form' onSubmit={handleSubmit}>
+          <input type='file' name='newWords' onChange={handleChange} />
+          <AddButton type='submit'>Add words</AddButton>
+        </form>
         <table>
           <tr>
             <th>Word</th>

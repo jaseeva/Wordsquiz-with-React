@@ -1,27 +1,29 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 const csv = require('fast-csv');
-const multer = require('multer');
+const multer = require('multer')
 const fs = require('fs')
+const cors = require('cors');
 var moment = require('moment');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json())
-
+app.use(cors())
 // global.__basedir = __dirname;
 
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//   cb(null, 'public')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname )
-//   }
-// })
-
-// var upload = multer({ storage: storage }).single('file')
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, './uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.originalname)
+  }
+});
+const upload = multer({
+  storage
+})
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -102,32 +104,36 @@ var db = new sqlite3.Database('./test.db', (err) => {
 
             csvData.forEach(el => {
               //console.log(`el: `, el)
-              let sql = 'INSERT INTO words (word, translation) VALUES (?, ?)';
-              db.run(sql, el, (error, response) => {
-                //console.log(error || response);
-              });
+              let sql = 'INSERT OR IGNORE INTO words (word, translation) VALUES (?, ?)';
+              db.run(sql, el)
             });
 
             // delete file after saving to MySQL database
-            // -> you can comment the statement to see the uploaded CSV file.
-			      //fs.unlinkSync(filePath)
+			      fs.unlinkSync(filePath)
         });
  
     stream.pipe(csvStream);
   }
 
-  app.post('/upload', function (req, res) {
-    db.run(`BEGIN TRANSACTION;`);
+  app.post('/upload', upload.single('file'), function (req, res, next) {
+    //console.log(`req: `, req.file)
+    if (req.file) {
+      const fpath = req.file.path
+      //console.log(`fpath: `, fpath)
+      
+      db.run(`BEGIN TRANSACTION;`);
 
-    importFileDataToTable('./files/words.csv')
+      importFileDataToTable(fpath)
 
-	  db.run(`COMMIT;`, (err) => {
-      if (err) {
-        res.status(400).json({"error":err.message});
-        return;
-      }
-      res.json({"message":"Data updated"})
-    });
+      db.run(`COMMIT;`, (err) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({"message":"Data updated"})
+      });
+    } else
+      res.status("409").json("No Files to Upload.");
   });
 
   function countMedian (arr) {
