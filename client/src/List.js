@@ -65,7 +65,7 @@ function List () {
       {isError && <div>Something went wrong ...</div>}
       <Container className="words-list shadow-box">
         <form encType="multipart/form-data" className='upload-form' onSubmit={handleSubmit}>
-          <input type='file' name='newWords' onChange={handleChange} />
+          <input type='file' accept=".csv" name='newWords' onChange={handleChange} />
           <AddButton type='submit'>Add words</AddButton>
         </form>
         <table>
