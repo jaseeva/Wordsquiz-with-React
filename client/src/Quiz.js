@@ -25,7 +25,7 @@ const DoneButton = styled.button`
 const Quiz = (props) => {
     const [quiz, setQuiz] = useState([])
     const [done, setDone] = useState(false)
-    console.log(`props: `, props)
+    // console.log(`props: `, props)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,7 +49,7 @@ const Quiz = (props) => {
             fetchLast()
         else
             fetchData()
-        console.log(`quiz: `, quiz)
+        // console.log(`quiz: `, quiz)
     },[])
   
     const handleChange = (word_id, ans) => {
