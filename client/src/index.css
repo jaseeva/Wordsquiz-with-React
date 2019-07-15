@@ -1,13 +1,167 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "Montserrat", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #F7F6EE;
+  /* background: #FEE5A5; */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* navigation */
+.navigation {
+  /* width: 800px; */
+  margin: 0; 
+  border-block-end: 2px solid #486D87;
+}
+
+.navigation div {
+  padding-right: 0;
+}
+
+.nav-item {
+  margin: auto;
+  padding-left: 20;
+  padding-top: 8px;
+  /* width: 140px; */
+}
+
+.nav-item a {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 15px;
+  display: inline-block;
+  text-decoration: none;
+  /* border: 2px solid #486D87; */
+  color: #486D87;
+}
+
+.nav-item a:hover {
+  background-color: #486D87;
+  color: white;
+}
+
+/* page content */
+.page-content {
+  padding: 40px 20px;
+  /* width: 800px; */
+  margin: auto;
+  /* border: 2px solid #486D87; */
+}
+
+.page-title {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.page-title h1 {
+  margin: 0;
+}
+
+.shadow-box {
+  background: white;
+  box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5);
+}
+
+/* words list */
+div.words-list {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.upload-form {
+  float: right;
+}
+
+.upload-form input {
+  padding: 10px;
+}
+
+.words-list table {
+  width: 100%;
+  border: 2px solid #ddd;
+  border-collapse: collapse;
+}
+
+.words-list th, td {
+  border-bottom: 1px solid #ddd;
+}
+
+.words-list th {
+  text-align: center;
+  padding: 4px;
+  background-color: #ddd;
+}
+
+.words-list td {
+  text-align: center;
+  padding: 4px;
+}
+
+/* quiz */
+.quiz-content {
+  margin: 0 auto;
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.quiz-item {
+  padding: 20px 40px;
+  /* border: 1px solid black; */
+  margin: 5% ;
+  text-align: center;
+}
+
+.quiz-item input {
+  width: 80%;
+  margin-top: 15px;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+/* results table */
+.results {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+/* dashboard */
+.chart {
+  overflow: hidden;
+  padding-bottom: 10px;
+  padding: 40px;
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: table;
+}
+
+.chart .pie {
+  margin: 0 auto;
+  float: left;
+}
+
+.wrap-comment {
+  float: left;
+  width: 250px;
+}
+
+.chart .pie-comment {
+  text-align: center;
+  float: left;
+}
+
+.bar {
+  margin: auto;
+}
+
+.bar-comment {
+  width: 50%;
+  margin: auto;
+  text-align: center;
 }
