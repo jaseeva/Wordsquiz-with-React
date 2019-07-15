@@ -11,8 +11,8 @@ A web app to learn new words in another language. Like flashcards, but better.
 - empty states are handled (mostly)
 
 **Setup:**
-Works only locally for now.
-From the root folder, `npm start` to run the server; 
+Works only locally for now. Make sure you have node.js installed.
+From the root folder, run `npm install` and then `npm start` to run the server; 
 From the /client folder `npm start` to run the app; 
 Test file that can be uploaded is in /files/words.csv
 
