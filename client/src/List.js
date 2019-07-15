@@ -49,7 +49,7 @@ function List () {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
 
     const data = new FormData();
     data.append('file', file);
