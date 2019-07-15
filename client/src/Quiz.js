@@ -71,7 +71,7 @@ const Quiz = (props) => {
         updateData()
         setDone(true)
     }
-    
+
     return (
       <React.Fragment>
         {done 

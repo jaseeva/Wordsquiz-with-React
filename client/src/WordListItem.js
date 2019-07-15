@@ -12,7 +12,7 @@ function WordListItem ({
         <td>{word}</td>
         <td>{translation}</td>
         <td>{rating}</td>
-        <td>{date ? moment(date).format('D MMM, HH:mm') : 'not answered'}</td>
+        <td>{date ? moment(date).format('D MMM, HH:mm') : 'never'}</td>
     </React.Fragment>
     )
 }

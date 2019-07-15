@@ -36,14 +36,16 @@ const Dashboard = () => {
         
         const update = []
         
-        const cor = {name: 'Correct'}
-        cor.value = item.answered_correct
-        
-        const wro = {name: 'Wrong'}
-        wro.value = item.answered_wrong
-        
-        update.push(cor)
-        update.push(wro)
+        if (item) {
+          const cor = {name: 'Correct'}
+          cor.value = item.answered_correct
+          
+          const wro = {name: 'Wrong'}
+          wro.value = item.answered_wrong
+          
+          update.push(cor)
+          update.push(wro)
+        }
         
         //console.log(`update: `, update)
         await setLast(update)
@@ -111,23 +113,25 @@ const Dashboard = () => {
                   <h1>Performance</h1>
                 </div>
                 <div className="chart shadow-box">
-                  <div className="bar-comment">
-                      Here you can see your stats for the last 10 quizzes
-                  </div>
                   {history.length > 0 ? (
-                  <BarChart
-                    className="bar"
-                    width={500}
-                    height={300}
-                    data={history}
-                    margin={{
-                    top: 20, right: 30, left: 20, bottom: 5,
-                    }}
-                  >
-                    <XAxis dataKey="name" />
-                    <Bar barSize={40} dataKey="c" stackId="a" fill="#2CA18C" />
-                    <Bar barSize={40} dataKey="w" stackId="a" fill="#C14364" />
-                  </BarChart>
+                    <React.Fragment>
+                      <div className="bar-comment">
+                          Here you can see your stats for the last 10 quizzes
+                      </div>
+                      <BarChart
+                        className="bar"
+                        width={500}
+                        height={300}
+                        data={history}
+                        margin={{
+                        top: 20, right: 30, left: 20, bottom: 5,
+                        }}
+                      >
+                        <XAxis dataKey="name" />
+                        <Bar barSize={40} dataKey="c" stackId="a" fill="#2CA18C" />
+                        <Bar barSize={40} dataKey="w" stackId="a" fill="#C14364" />
+                      </BarChart>
+                    </React.Fragment>
                   ) : (
                     <p>No quizzes answered yet :(</p>
                   )}
