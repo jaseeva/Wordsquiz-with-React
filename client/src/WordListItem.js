@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 function WordListItem ({
     word,
@@ -11,7 +12,7 @@ function WordListItem ({
         <td>{word}</td>
         <td>{translation}</td>
         <td>{rating}</td>
-        <td>{date ? date : 'not answered'}</td>
+        <td>{date ? moment(date).format('D MMM, HH:mm') : 'not answered'}</td>
     </React.Fragment>
     )
 }

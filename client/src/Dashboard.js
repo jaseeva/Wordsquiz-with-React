@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import { PieChart, Pie, Sector, Cell, BarChart, Bar, XAxis, } from 'recharts';
+import moment from 'moment';
 
 const COLORS = ['#2CA18C', '#C14364']; 
 
@@ -55,7 +56,7 @@ const Dashboard = () => {
       
       quizzes.forEach(el => {
         const i = {}
-        i.name = el.quiz_date
+        i.name = moment(el.quiz_date).format('D/M')
         i.c = el.answered_correct
         i.w = el.answered_wrong
         stats.push(i)
