@@ -109,13 +109,6 @@ div.words-list {
   text-align: center;
 }
 
-.quiz-item {
-  padding: 20px 40px;
-  /* border: 1px solid black; */
-  margin: 5% ;
-  text-align: center;
-}
-
 .quiz-item input {
   width: 80%;
   margin-top: 15px;

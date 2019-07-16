@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import QuizItem from './QuizItem';
+import WordCard from './WordCard';
 
 const DoneButton = styled.button`
     width: 90%;
@@ -84,9 +84,7 @@ const Quiz = (props) => {
                 </div> */}
                 <form onSubmit={handleSubmit} >
                     {quiz.map(word =>
-                        <div className="quiz-item shadow-box" key={word.id}>
-                            <QuizItem word={word.word} id={word.id} onChange={handleChange} />
-                        </div>
+                        <WordCard key={word.id} isQuiz word={word.word} id={word.id} onChange={handleChange} theme='quiz' />
                     )}
                     <DoneButton type="submit">Done!</DoneButton>
                 </form>

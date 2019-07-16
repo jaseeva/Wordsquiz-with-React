@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import ResultItem from './ResultItem';
+import WordCard from './WordCard';
 
 const Results = (props) => { 
     const data = props.location.state.quiz
@@ -13,7 +13,7 @@ const Results = (props) => {
             </div>
             <div className="results">
                 {data.map(word =>
-                    <div key={word.id} className="result" ><ResultItem word={word.word} answer={word.answer} translation={word.translation} correct={word.correct} /></div>
+                    <WordCard key={word.id} word={word.word} answer={word.answer} translation={word.translation} isCorrect={word.correct} theme={`correct-${word.correct}`} />
                 )}
             </div>
         </div>
