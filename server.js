@@ -63,6 +63,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
       answered_correct INTEGER DEFAULT (0),
       answered_wrong   INTEGER DEFAULT (0));`
     )
+    console.log("tables created");
   }
 
   // Root endpoint
