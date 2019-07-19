@@ -1,29 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
 import axios from 'axios';
 import { PieChart, Pie, Sector, Cell, BarChart, Bar, XAxis, } from 'recharts';
 import moment from 'moment';
 
 const COLORS = ['#2CA18C', '#C14364']; 
-
-// const RepeatButton = styled.div`
-//     width: 100%;
-//     font-weight: bold;
-//     font-size: 16px;
-//     font-family: Montserrat;
-//     margin: auto;
-//     padding: 10px 20px;
-//     border: 2px solid #486D87;
-//     background: white;
-//     color: #486D87;
-//     cursor: pointer;
-
-//     &:hover {
-//         background-color: #486D87;
-//         color: white;
-//     }
-// `;
 
 const Dashboard = () => {
   const [last, setLast] = useState([])
@@ -51,7 +32,7 @@ const Dashboard = () => {
         await setLast(update)
         //console.log(`last: `, last)
     }
-    const fetchLast10 = async () => {
+    const fetchHistory = async () => {
       const res = await axios.get('/quiz_history')
       const quizzes = res.data
       const stats = []
@@ -69,7 +50,7 @@ const Dashboard = () => {
       //console.log(`history: `, history)
   }
     fetchLast()
-    fetchLast10()
+    fetchHistory()
   },[])
 
     return (

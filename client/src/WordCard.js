@@ -1,5 +1,5 @@
 import React from 'react';
-import Word from './WordLabel';
+import Word from './Word';
 import styled from 'styled-components';
 import QuizInput from './QuizInput';
 import ResultItem from './ResultItem';
