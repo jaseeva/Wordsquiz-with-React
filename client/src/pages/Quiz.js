@@ -54,6 +54,7 @@ const Quiz = (props) => {
   
     const handleChange = (word_id, ans) => {
         const arr = [...quiz]
+        // eslint-disable-next-line
         let obj = arr.find(obj => obj.id == word_id);
         obj.answer = ans
         if (obj.answer === obj.translation) {obj.correct = true}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-grid';
-import { Route, NavLink, HashRouter, Switch, withRouter } from "react-router-dom";
+import { Route, NavLink, HashRouter, Switch } from "react-router-dom";
 import styled from 'styled-components';
 import List from './pages/List';
 import Quiz from './pages/Quiz';

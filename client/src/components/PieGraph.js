@@ -1,5 +1,5 @@
 import React from 'react';
-import { PieChart, Pie, Sector, Cell } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 
 const COLORS = ['#2CA18C', '#C14364']; 
 
