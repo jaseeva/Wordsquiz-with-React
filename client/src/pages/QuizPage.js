@@ -22,7 +22,7 @@ const DoneButton = styled.button`
     }
 `;
 
-const Quiz = (props) => {
+const QuizPage = (props) => {
     const [quiz, setQuiz] = useState([])
     const [done, setDone] = useState(false)
     // console.log(`props: `, props)
@@ -95,4 +95,4 @@ const Quiz = (props) => {
     )
 }
 
-export default withRouter(Quiz);
+export default withRouter(QuizPage);

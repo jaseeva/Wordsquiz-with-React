@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import WordCard from '../components/WordCard';
 
-const Results = (props) => { 
+const ResultsPage = (props) => { 
     const data = props.location.state.quiz
     //console.log(`props: `, props)
     return (
@@ -21,4 +21,4 @@ const Results = (props) => {
     )
 }
 
-export default withRouter(Results);
+export default withRouter(ResultsPage);
