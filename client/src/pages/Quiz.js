@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import WordCard from './WordCard';
+import WordCard from '../components/WordCard';
 
 const DoneButton = styled.button`
     width: 90%;

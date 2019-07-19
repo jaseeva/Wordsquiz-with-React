@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import WordCard from './WordCard';
+import WordCard from '../components/WordCard';
 
 const Results = (props) => { 
     const data = props.location.state.quiz
