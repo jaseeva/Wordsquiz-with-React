@@ -2,10 +2,10 @@ import React from 'react';
 import { Container, Row, Col } from 'react-grid';
 import { Route, NavLink, HashRouter, Switch, withRouter } from "react-router-dom";
 import styled from 'styled-components';
-import List from './List';
-import Quiz from './Quiz';
-import Results from './Results';
-import Dashboard from './Dashboard';
+import List from './pages/List';
+import Quiz from './pages/Quiz';
+import Results from './pages/Results';
+import Dashboard from './pages/Dashboard';
 
 const NavTitle = styled.a`
   text-decoration: none;
