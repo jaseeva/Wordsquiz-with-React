@@ -21,9 +21,9 @@ FE: React with functional components and hooks + occasional styled components; D
 BE: Express and sqlite database.
 
 **Possible ToDo's:**
+- [x] create folder structure with pages and components
 - [ ] make server and app run with 1 command
 - [ ] extract more components (e.g. button and word card)
-- [ ] create folder structure with pages and components
 - [ ] add simple login and update routing
 - [ ] add component tests
 - [ ] delete word from the list
