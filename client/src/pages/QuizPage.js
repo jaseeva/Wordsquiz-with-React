@@ -1,26 +1,13 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { Redirect, withRouter } from "react-router-dom";
 import axios from "axios";
-import WordCard from "../components/WordCard";
+import QuizContent from "../components/QuizContent";
+import Branch from "../components/Branch";
 
-const DoneButton = styled.button`
-  width: 90%;
-  font-weight: bold;
-  font-size: 16px;
-  font-family: Montserrat;
-  margin: auto;
-  padding: 20px;
-  border: 2px solid #486d87;
-  background: #f7f6ee;
-  color: #486d87;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #486d87;
-    color: white;
-  }
-`;
+const Empty = () => 
+  <div className="chart shadow-box">
+    <p>No words found :(</p>
+  </div>
 
 const QuizPage = props => {
   const [quiz, setQuiz] = useState([]);
@@ -64,7 +51,7 @@ const QuizPage = props => {
     setQuiz(arr);
   };
 
-  const updateData = async () => {
+  const updateData = () => {
     const newQuiz = [...quiz];
     axios.patch("/save_quiz", newQuiz);
   };
@@ -75,26 +62,21 @@ const QuizPage = props => {
     setDone(true);
   };
 
+  const notEmpty = (data) => data.length > 0;
+
   return (
     <React.Fragment>
       {done ? (
         <Redirect to={{ pathname: "/results", state: { quiz } }} />
       ) : (
-        <div className="quiz-content">
-          <form onSubmit={handleSubmit}>
-            {quiz.map(word => (
-              <WordCard
-                key={word.id}
-                isQuiz
-                word={word.word}
-                id={word.id}
-                onChange={handleChange}
-                theme="quiz"
-              />
-            ))}
-            <DoneButton type="submit">Done!</DoneButton>
-          </form>
-        </div>
+        <Branch 
+          condition={notEmpty(quiz)} 
+          Component={QuizContent} 
+          Alt={Empty} 
+          quiz={quiz}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+        />
       )}
     </React.Fragment>
   );

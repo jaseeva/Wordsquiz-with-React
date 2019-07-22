@@ -1,6 +1,6 @@
 import React from "react";
 
-const QuizInput = ({ word, id, onChange }) => {
+const QuizInput = ({ id, onChange }) => {
   const handleChange = e => {
     onChange(e.target.id, e.target.value);
   };

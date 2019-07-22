@@ -3,6 +3,9 @@ import { Container, Row } from "react-grid";
 import axios from "axios";
 import FileUpload from "../components/FileUpload";
 import WordList from "../components/WordList";
+import Branch from "../components/Branch";
+
+const Empty = () => <p>Please upload a .csv file to add some words</p>;
 
 const WordsPage = () => {
   const [data, setData] = useState([]);
@@ -22,6 +25,8 @@ const WordsPage = () => {
     fetchData();
   }, []);
 
+  const notEmpty = (data) => data.length > 0;
+
   return (
     <Container className="list-page">
       <Row className="page-title">
@@ -29,13 +34,9 @@ const WordsPage = () => {
       </Row>
 
       <Container className="words-list shadow-box">
-        {isError && <div>Something went wrong ...</div>}
         <FileUpload />
-        {data.length > 0 ? (
-          <WordList data={data} />
-        ) : (
-          <p>Please upload a .csv file to add some words</p>
-        )}
+        {isError && <p>Something went wrong ...</p>}
+        <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} />
       </Container>
     </Container>
   );
