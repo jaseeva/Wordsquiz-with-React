@@ -5,23 +5,23 @@ import QuizInput from "./QuizInput";
 import ResultItem from "./ResultItem";
 
 const Card = styled.div`
-  width: ${props => props.theme !== "quiz" && "50%"};
   padding: 20px 40px;
-  margin: ${props => (props.theme === "quiz" ? "5%" : "15px auto")};
+  margin: 15px auto;
   text-align: center;
   line-height: 40px;
-  background-color: ${props =>
-    props.theme === "correct-true"
-      ? "rgba(75, 180, 98, 0.3)"
-      : props.theme === "correct-false"
-        ? "rgba(253, 33, 84, 0.3)"
-        : "white"};
-  border: ${props =>
-    props.theme === "correct-true"
-      ? "1px solid rgba(75, 180, 98, 0.3)"
-      : props.theme === "correct-false"
-        ? "1px solid rgba(253, 33, 84, 0.3)"
-        : "none"};
+  background-color: white;
+  border: none;
+  ${props => props.theme === 'quiz' && "margin: 5%;"};
+  ${props => props.theme === 'correct-true' && `
+    background-color: rgba(75, 180, 98, 0.3);
+    border: 1px solid rgba(75, 180, 98, 0.3);
+    width: 50%;`
+  }
+  ${props => props.theme === 'correct-false' && `
+    background-color: rgba(253, 33, 84, 0.3);
+    border: 1px solid rgba(253, 33, 84, 0.3);
+    width: 50%;`
+  }
 `;
 
 const WordCard = ({
