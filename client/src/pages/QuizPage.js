@@ -8,6 +8,7 @@ const Empty = () =>
   <div className="chart shadow-box">
     <p>No words found :(</p>
   </div>
+  // <ShadowBox wide>{text.QuizPage.empty}</ShadowBox>
 
 const QuizPage = props => {
   const [quiz, setQuiz] = useState([]);

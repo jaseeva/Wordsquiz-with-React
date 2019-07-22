@@ -22,15 +22,15 @@ BE: Express and sqlite database.
 
 **Possible ToDo's:**
 - [x] create folder structure with pages and components
+- [x] add empty state when starting quiz with no words
+- [x] improve components composition (ongoing)
 - [ ] make server and app run with 1 command
-- [ ] extract more components (e.g. button and word card)
 - [ ] add simple login and update routing
 - [ ] add component tests
 - [ ] delete word from the list
 - [ ] add sorting for the list columns
 - [ ] add pagination for the word list
 - [ ] add a graph/progress bar showing overall success rate for the whole list
-- [ ] add error state when starting quiz with no words
 - [ ] make responsive and mobile-friendly
 - [ ] add loading state for quiz and list
 - [ ] extract text and store it separately
