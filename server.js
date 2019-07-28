@@ -151,6 +151,18 @@ const db = new sqlite3.Database('./test.db', (err) => {
       res.status("409").json("No Files to Upload.");
   });
 
+  app.delete('/delete_word/:id', (req, res, next) => {
+    const sql = "DELETE FROM words WHERE id = ?"
+    const id = req.params.id
+    db.run(sql, id, (err, rows) => {
+      if (err){
+        res.status(400).json({"error": res.message})
+        return;
+      }
+      res.json({"message":"deleted", changes: this.changes})
+    })
+  })
+
   function countMedian (arr) {
     let median;
     let i;

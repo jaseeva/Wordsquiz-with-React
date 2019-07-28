@@ -27,6 +27,12 @@ const WordsPage = () => {
 
   const notEmpty = (data) => data.length > 0;
 
+  const handleRemove = (id) => {
+    axios.delete(`/delete_word/${id}`)
+    const newData = data.filter(el => el.id !== id)
+    setData(newData)
+  }
+
   return (
     <Container className="list-page">
       <Row className="page-title">
@@ -36,7 +42,7 @@ const WordsPage = () => {
       <Container className="words-list shadow-box">
         <FileUpload />
         {isError && <p>Something went wrong ...</p>}
-        <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} />
+        <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} handleRemove={handleRemove} />
       </Container>
     </Container>
   );

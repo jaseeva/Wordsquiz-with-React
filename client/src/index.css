@@ -9,6 +9,18 @@ body {
   /* background: #FEE5A5; */
 }
 
+.action-icon {
+  cursor: pointer;
+  background: white;
+  border: none;
+  padding: 0;
+  color: #486D87;
+}
+
+.action-icon:hover {
+  color: black;
+}
+
 /* navigation */
 .navigation {
   /* width: 800px; */
