@@ -23,10 +23,7 @@ const LastSessionChart = () => {
         update.push(cor);
         update.push(wro);
       }
-
-      //console.log(`update: `, update)
-      await setLast(update);
-      //console.log(`last: `, last)
+      setLast(update);
     };
     fetchLast();
   }, []);

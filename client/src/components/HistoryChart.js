@@ -10,19 +10,14 @@ const HistoryChart = () => {
     const fetchHistory = async () => {
       const res = await axios.get("/quiz_history");
       const quizzes = res.data;
-      const stats = [];
-
-      quizzes.forEach(el => {
-        const i = {};
-        i.name = moment(el.quiz_date).format("D/M");
-        i.c = el.answered_correct;
-        i.w = el.answered_wrong;
-        stats.push(i);
-      });
-
-      //console.log(`stats: `, stats)
-      await setHistory(stats);
-      //console.log(`history: `, history)
+      const stats = quizzes.map(el => {
+        return {
+          name: moment(el.quiz_date).format("D/M"),
+          c: el.answered_correct,
+          w: el.answered_wrong
+        }
+      })
+      setHistory(stats);
     };
     fetchHistory();
   }, []);

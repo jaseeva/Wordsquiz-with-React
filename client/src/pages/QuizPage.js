@@ -19,23 +19,15 @@ const QuizPage = props => {
     const fetchData = async () => {
       const result = await axios.get("/quiz");
       const words = result.data;
-      words.forEach(el => {
-        el.correct = false;
-      });
-      // make this work instead:
-      // const withAnswerField = [...words, words.map(el => el.correct = false)]
-      setQuiz(words);
+      const withAnswerField = words.map(el => el = {...el, correct: false})
+      setQuiz(withAnswerField);
     };
 
     const fetchLast = async () => {
       const result = await axios.get("/quiz_repeat");
       const words = result.data;
-      // replace with map() too
-      // can I remove duplication of this code?
-      words.forEach(el => {
-        el.correct = false;
-      });
-      setQuiz(words);
+      const withAnswerField = words.map(el => el = {...el, correct: false})
+      setQuiz(withAnswerField);
     };
 
     const mode = props.location.state;
