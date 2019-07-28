@@ -24,6 +24,7 @@ BE: Express and sqlite database.
 - [x] create folder structure with pages and components
 - [x] add empty state when starting quiz with no words
 - [x] improve components composition (ongoing)
+- [ ] better error handling
 - [ ] make server and app run with 1 command
 - [ ] add simple login and update routing
 - [ ] add component tests
