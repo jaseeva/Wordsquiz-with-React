@@ -22,16 +22,20 @@ const QuizPage = props => {
       words.forEach(el => {
         el.correct = false;
       });
-      await setQuiz(words);
+      // make this work instead:
+      // const withAnswerField = [...words, words.map(el => el.correct = false)]
+      setQuiz(words);
     };
 
     const fetchLast = async () => {
       const result = await axios.get("/quiz_repeat");
       const words = result.data;
+      // replace with map() too
+      // can I remove duplication of this code?
       words.forEach(el => {
         el.correct = false;
       });
-      await setQuiz(words);
+      setQuiz(words);
     };
 
     const mode = props.location.state;
@@ -41,8 +45,7 @@ const QuizPage = props => {
 
   const handleChange = (word_id, ans) => {
     const arr = [...quiz];
-    // eslint-disable-next-line
-    let obj = arr.find(obj => obj.id == word_id);
+    const obj = arr.find(obj => obj.id === Number(word_id));
     obj.answer = ans;
     if (obj.answer === obj.translation) {
       obj.correct = true;
@@ -52,14 +55,10 @@ const QuizPage = props => {
     setQuiz(arr);
   };
 
-  const updateData = () => {
-    const newQuiz = [...quiz];
-    axios.patch("/save_quiz", newQuiz);
-  };
-
   const handleSubmit = event => {
     event.preventDefault();
-    updateData();
+    const newQuiz = [...quiz];
+    axios.patch("/save_quiz", newQuiz);
     setDone(true);
   };
 

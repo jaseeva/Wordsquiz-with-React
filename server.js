@@ -1,10 +1,10 @@
 const express = require('express');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const csv = require('fast-csv');
 const multer = require('multer')
 const fs = require('fs')
 const cors = require('cors');
-var moment = require('moment');
+const moment = require('moment');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 // global.__basedir = __dirname;
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, './uploads')
   },
@@ -33,8 +33,8 @@ app.get('/express_backend', (req, res) => {
   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('./test.db', (err) => {
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./test.db', (err) => {
     if (err) {
       console.error(err.message);
     }
@@ -74,6 +74,7 @@ var db = new sqlite3.Database('./test.db', (err) => {
   app.get("/last_quiz", (req, res, next) => {
     db.all('SELECT * FROM history ORDER BY quiz_id DESC LIMIT 1;', [], (err, rows) => {
       if (err) {
+        // find how to pass this to next() and handle there
         res.status(400).json({"error":err.message});
         return;
       }
@@ -200,34 +201,34 @@ var db = new sqlite3.Database('./test.db', (err) => {
 
   app.patch('/save_quiz', function (req, res, next) {
     // console.log(`req.body: `, req.body)
-    var d = moment().format('YYYY-MM-DD H:mm:ss');
-    var cor = 0
-    var wro = 0
+    const d = moment().format('YYYY-MM-DD H:mm:ss');
+    let cor = 0
+    let wro = 0
     db.run(`BEGIN TRANSACTION;`);
     req.body.forEach(el => {
-      var data = {
+      const data = {
         id: el.id,
         correct: el.correct,
       }
 
-      var rate = 0
+      let rate = 0
       if (data.correct == true) {
         rate = 1
         cor = cor + 1
       } else { wro = wro + 1 }
 
-      var sql =`UPDATE words SET 
+      const sql =`UPDATE words SET 
       learned_rating=learned_rating+?,
       last_answered=?, 
       last_result=?
       WHERE id=?`
-      var params = [rate, d, rate, data.id]
+      let params = [rate, d, rate, data.id]
       
       db.run(sql, params)
     });
     
-    var sql_h = `INSERT INTO history(quiz_date, answered_correct, answered_wrong) VALUES(?, ?, ?)`
-    var params_h = [d, cor, wro]
+    const sql_h = `INSERT INTO history(quiz_date, answered_correct, answered_wrong) VALUES(?, ?, ?)`
+    let params_h = [d, cor, wro]
     db.run(sql_h, params_h)
 
     db.run(`COMMIT;`, (err) => {
