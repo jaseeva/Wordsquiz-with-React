@@ -29,9 +29,9 @@ const upload = multer({
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
+// app.get('/express_backend', (req, res) => {
+//   res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
+// });
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./test.db', (err) => {
@@ -74,9 +74,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
   app.get("/last_quiz", (req, res, next) => {
     db.all('SELECT * FROM history ORDER BY quiz_id DESC LIMIT 1;', [], (err, rows) => {
       if (err) {
-        // find how to pass this to next() and handle there
-        res.status(400).json({"error":err.message});
-        return;
+        err.message = `Failed to get quiz history. `+err.message
+        next(err);
       }
       res.json(rows);
     });
@@ -86,8 +85,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
     sql = 'SELECT * FROM (SELECT * FROM history ORDER BY quiz_id DESC LIMIT 10) ORDER BY quiz_id ASC;'
     db.all(sql, [], (err, rows) => {
       if (err) {
-        res.status(400).json({"error":err.message});
-        return;
+        err.message = `Failed to get quiz history. `+err.message
+        next(err);
       }
       res.json(rows);
     });
@@ -97,8 +96,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
   app.get('/list', function (req, res, next) {
     db.all('SELECT * FROM words', [], (err, rows) => {
       if (err) {
-        res.status(400).json({"error":err.message});
-        return;
+        err.message = `Failed to get words list. `+err.message
+        next(err);
       }
       res.json(rows);
     });
@@ -142,13 +141,16 @@ const db = new sqlite3.Database('./test.db', (err) => {
 
       db.run(`COMMIT;`, (err) => {
         if (err) {
-          res.status(400).json({"error":err.message});
-          return;
+          err.message = `Failed importing data from file to database. `+err.message
+          next(err);
         }
         res.json({"message":"Data updated"})
       });
-    } else
-      res.status("409").json("No Files to Upload.");
+  } else {
+      let err = new Error('No Files to Upload.')
+      err.statusCode = 409
+      next(err);
+    }
   });
 
   app.delete('/delete_word/:id', (req, res, next) => {
@@ -156,8 +158,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
     const id = req.params.id
     db.run(sql, id, (err, rows) => {
       if (err){
-        res.status(400).json({"error": res.message})
-        return;
+        err.message = `Couldn't delete word with id ${id}. `+err.message
+        next(err);
       }
       res.json({"message":"deleted", changes: this.changes})
     })
@@ -179,8 +181,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
     const sql = "SELECT * FROM words WHERE last_answered = (SELECT max(last_answered) FROM words); ORDER BY random()"
     db.all(sql, (err, rows) => {
       if (err) {
-        res.status(400).json({"error":err.message});
-        return;
+        err.message = `Couldn't compose a quiz. `+err.message
+        next(err);
       }
       res.json(rows);
     })
@@ -192,8 +194,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
     const sql_m = "SELECT learned_rating from words ORDER BY learned_rating ASC"
     db.all(sql_m, [], (err, rows) => {
       if (err) {
-        res.status(400).json({"error":err.message});
-        return;
+        err.message = `Couldn't count the rating median. `+err.message
+        next(err);
       }
       rows.forEach(el => {
         rates.push(el.learned_rating)
@@ -203,8 +205,8 @@ const db = new sqlite3.Database('./test.db', (err) => {
       const sql = "SELECT * FROM words WHERE learned_rating <= "+median+" ORDER BY random() limit 5"
       db.all(sql, [], (err, rows) => {
         if (err) {
-          res.status(400).json({"error":err.message});
-          return;
+          err.message = `Couldn't compose a quiz. `+err.message
+          next(err);
         }
         res.json(rows);
       });
@@ -245,13 +247,27 @@ const db = new sqlite3.Database('./test.db', (err) => {
 
     db.run(`COMMIT;`, (err) => {
       if (err) {
-        res.status(400).json({"error":err.message});
-        return;
+        err.message = `Couldn't save quiz results. `+err.message
+        next(err);
       }
       res.json({"message":"Data updated"})
     });
   });
    
+  app.get(function(req, res, next) {
+    let err = new Error(`${req.originalUrl} not found`);
+    err.statusCode = 404;
+    err.shouldRedirect = true;
+    next(err);
+  });
+
+  // error handling
+  app.use(function(err, req, res, next) {
+    if (!err.statusCode) err.statusCode = 500;
+    console.error(err.statusCode, err.message);
+    res.status(err.statusCode).send(err.message);
+  });
+  
   // function closeDB(){
   //   db.close((err) => {
   //     if (err) {
