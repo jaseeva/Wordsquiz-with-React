@@ -3,6 +3,7 @@ import { Redirect, withRouter } from "react-router-dom";
 import axios from "axios";
 import QuizContent from "../components/QuizContent";
 import Branch from "../components/Branch";
+import Error from "../components/Error";
 
 const Empty = () => 
   <div className="chart shadow-box">
@@ -13,21 +14,32 @@ const Empty = () =>
 const QuizPage = props => {
   const [quiz, setQuiz] = useState([]);
   const [done, setDone] = useState(false);
+  const [isError, setIsError] = useState(false);
   // console.log(`props: `, props)
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("/quiz");
-      const words = result.data;
-      const withAnswerField = words.map(el => el = {...el, correct: false})
-      setQuiz(withAnswerField);
+      setIsError(false);
+      try {
+        const result = await axios.get("/quiz");
+        const words = result.data;
+        const withAnswerField = words.map(el => el = {...el, correct: false})
+        setQuiz(withAnswerField);
+      } catch (error) {
+        setIsError(true);
+      }
     };
 
     const fetchLast = async () => {
-      const result = await axios.get("/quiz_repeat");
-      const words = result.data;
-      const withAnswerField = words.map(el => el = {...el, correct: false})
-      setQuiz(withAnswerField);
+      setIsError(false);
+      try {
+        const result = await axios.get("/quiz_repeat");
+        const words = result.data;
+        const withAnswerField = words.map(el => el = {...el, correct: false})
+        setQuiz(withAnswerField);
+      } catch (error) {
+        setIsError(true);
+      }
     };
 
     const mode = props.location.state;
@@ -58,6 +70,7 @@ const QuizPage = props => {
 
   return (
     <React.Fragment>
+      {/* {isError && <Error/>} */}
       {done ? (
         <Redirect to={{ pathname: "/results", state: { quiz } }} />
       ) : (

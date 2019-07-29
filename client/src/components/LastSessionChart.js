@@ -2,34 +2,42 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import PieGraph from "./PieGraph";
+import Error from "./Error";
 
 const LastSessionChart = () => {
   const [last, setLast] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchLast = async () => {
-      const res = await axios.get("/last_quiz");
-      const item = res.data[0];
+      setIsError(false);
+      try {
+        const res = await axios.get("/last_quiz");
+        const item = res.data[0];
 
-      const update = [];
+        const update = [];
 
-      if (item) {
-        const cor = { name: "Correct" };
-        cor.value = item.answered_correct;
+        if (item) {
+          const cor = { name: "Correct" };
+          cor.value = item.answered_correct;
 
-        const wro = { name: "Wrong" };
-        wro.value = item.answered_wrong;
+          const wro = { name: "Wrong" };
+          wro.value = item.answered_wrong;
 
-        update.push(cor);
-        update.push(wro);
+          update.push(cor);
+          update.push(wro);
+        }
+        setLast(update);
+      } catch (error) {
+        setIsError(true);
       }
-      setLast(update);
     };
     fetchLast();
   }, []);
 
   return (
     <div className="chart shadow-box">
+      {isError && <Error/>}
       {last.length > 0 ? (
         <React.Fragment>
           <PieGraph data={last} />

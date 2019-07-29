@@ -4,6 +4,7 @@ import axios from "axios";
 import FileUpload from "../components/FileUpload";
 import WordList from "../components/WordList";
 import Branch from "../components/Branch";
+import Error from "../components/Error";
 
 const Empty = () => <p>Please upload a .csv file to add some words</p>;
 
@@ -41,7 +42,7 @@ const WordsPage = () => {
 
       <Container className="words-list shadow-box">
         <FileUpload />
-        {isError && <p>Something went wrong ...</p>}
+        {isError && <Error/>}
         <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} handleRemove={handleRemove} />
       </Container>
     </Container>

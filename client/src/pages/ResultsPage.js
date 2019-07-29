@@ -1,12 +1,14 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import WordCard from "../components/WordCard";
+import Error from "../components/Error";
 
 const ResultsPage = props => {
   const data = props.location.state.quiz;
   //console.log(`props: `, props)
   return (
     <React.Fragment>
+      {!data && <Error/>}
       <div className="results-page">
         <div className="page-title">
           <h1>Results</h1>
