@@ -14,11 +14,11 @@ const WordsPage = () => {
   const [isError, setIsError] = useState(false);
   const [show, setShow] = useState(false);
 
-  const showModal = (e) => {
+  const showModal = () => {
     setShow(true)
   }
 
-  const hideModal = (e) => {
+  const hideModal = () => {
     setShow(false)
   }
 
