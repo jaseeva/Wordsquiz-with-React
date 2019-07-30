@@ -46,6 +46,10 @@ const WordsPage = () => {
 
   const resetRatings = () => {
     axios.patch(`/reset_ratings`)
+    setShow(false)
+    // do I have to mock what I did in database? is there abother way to immediately refresh data?
+    const newData = data.map(el => el = {...el, learned_rating: 0})
+    setData(newData)
   }
 
   return (
@@ -62,7 +66,7 @@ const WordsPage = () => {
           <p>Are you sure you want to reset all learned ratings to 0? This action can't be undone and you'll never prove that you ever knew anything at all.</p>
           <button onClick={resetRatings}>BURN!!1</button>
         </ModalBox>
-        <button className="action-icon" onClick={showModal}>Reset word ratings</button><br/>
+        {notEmpty(data) && <button className="action-icon" onClick={showModal}>Reset word ratings</button>}
       </Container>
     </Container>
   );
