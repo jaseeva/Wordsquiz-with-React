@@ -5,12 +5,22 @@ import FileUpload from "../components/FileUpload";
 import WordList from "../components/WordList";
 import Branch from "../components/Branch";
 import Error from "../components/Error";
+import ModalBox from "../components/ModalBox";
 
 const Empty = () => <p>Please upload a .csv file to add some words</p>;
 
 const WordsPage = () => {
   const [data, setData] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const showModal = (e) => {
+    setShow(true)
+  }
+
+  const hideModal = (e) => {
+    setShow(false)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +44,10 @@ const WordsPage = () => {
     setData(newData)
   }
 
+  const resetRatings = () => {
+    axios.patch(`/reset_ratings`)
+  }
+
   return (
     <Container className="list-page">
       <Row className="page-title">
@@ -44,6 +58,11 @@ const WordsPage = () => {
         <FileUpload />
         {isError && <Error/>}
         <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} handleRemove={handleRemove} />
+        <ModalBox show={show} handleClose={hideModal}>
+          <p>Are you sure you want to reset all learned ratings to 0? This action can't be undone and you'll never prove that you ever knew anything at all.</p>
+          <button onClick={resetRatings}>BURN!!1</button>
+        </ModalBox>
+        <button className="action-icon" onClick={showModal}>Reset word ratings</button><br/>
       </Container>
     </Container>
   );

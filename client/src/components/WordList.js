@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import WordListItem from "../components/WordListItem";
 
 const WordList = ({ data, handleRemove }) => {

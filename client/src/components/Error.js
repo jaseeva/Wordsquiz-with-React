@@ -2,7 +2,7 @@ import React from'react'
 
 const Error = () => {
     return (
-        <div className="shadow-box page-content">
+        <div>
             <p>Call the cops, something went wrong!</p>
         </div>
     )

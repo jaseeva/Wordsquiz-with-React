@@ -253,6 +253,17 @@ const db = new sqlite3.Database('./test.db', (err) => {
       res.json({"message":"Data updated"})
     });
   });
+
+  app.patch('/reset_ratings', function (req, res, next) {
+    const sql = `UPDATE words SET learned_rating=0`;
+    db.run(sql, (err, rows) => {
+      if (err){
+        err.message = `Couldn't reset ratings. `+err.message
+        next(err);
+      }
+      res.json({"message":"ratings reset", changes: this.changes})
+    })
+  })
    
   app.get(function(req, res, next) {
     let err = new Error(`${req.originalUrl} not found`);
