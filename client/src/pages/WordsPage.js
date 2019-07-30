@@ -16,12 +16,12 @@ const WordsPage = () => {
   const [show, setShow] = useState(false);
 
   const showModal = () => {
-    setShow(true)
-  }
+    setShow(true);
+  };
 
   const hideModal = () => {
-    setShow(false)
-  }
+    setShow(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,21 +37,21 @@ const WordsPage = () => {
     fetchData();
   }, []);
 
-  const notEmpty = (data) => data.length > 0;
+  const notEmpty = data => data.length > 0;
 
-  const handleRemove = (id) => {
-    axios.delete(`/delete_word/${id}`)
-    const newData = data.filter(el => el.id !== id)
-    setData(newData)
-  }
+  const handleRemove = id => {
+    axios.delete(`/delete_word/${id}`);
+    const newData = data.filter(el => el.id !== id);
+    setData(newData);
+  };
 
   const resetRatings = () => {
-    axios.patch(`/reset_ratings`)
-    setShow(false)
+    axios.patch(`/reset_ratings`);
+    setShow(false);
     // do I have to mock what I did in database? is there abother way to immediately refresh data?
-    const newData = data.map(el => el = {...el, learned_rating: 0})
-    setData(newData)
-  }
+    const newData = data.map(el => (el = { ...el, learned_rating: 0 }));
+    setData(newData);
+  };
 
   return (
     <Container className="list-page">
@@ -61,13 +61,27 @@ const WordsPage = () => {
 
       <Container className="words-list shadow-box">
         <FileUpload />
-        {isError && <Error/>}
-        <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} handleRemove={handleRemove} />
+        {isError && <Error />}
+        <Branch
+          condition={notEmpty(data)}
+          Component={WordList}
+          Alt={Empty}
+          data={data}
+          handleRemove={handleRemove}
+        />
         <ModalBox show={show} handleClose={hideModal}>
-          <p>Are you sure you want to reset all learned ratings to 0? This action can't be undone and you'll never prove that you ever knew anything at all.</p>
+          <p>
+            Are you sure you want to reset all learned ratings to 0? This action
+            can't be undone and you'll never prove that you ever knew anything
+            at all.
+          </p>
           <ActionButton handleClick={resetRatings} text="Reset" />
         </ModalBox>
-        {notEmpty(data) && <button className="action-icon" onClick={showModal}>Reset word ratings</button>}
+        {notEmpty(data) && (
+          <button className="action-icon" onClick={showModal}>
+            Reset word ratings
+          </button>
+        )}
       </Container>
     </Container>
   );
