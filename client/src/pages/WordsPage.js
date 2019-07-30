@@ -6,6 +6,7 @@ import WordList from "../components/WordList";
 import Branch from "../components/Branch";
 import Error from "../components/Error";
 import ModalBox from "../components/ModalBox";
+import ActionButton from "../components/ActionButton";
 
 const Empty = () => <p>Please upload a .csv file to add some words</p>;
 
@@ -64,7 +65,7 @@ const WordsPage = () => {
         <Branch condition={notEmpty(data)} Component={WordList} Alt={Empty} data={data} handleRemove={handleRemove} />
         <ModalBox show={show} handleClose={hideModal}>
           <p>Are you sure you want to reset all learned ratings to 0? This action can't be undone and you'll never prove that you ever knew anything at all.</p>
-          <button onClick={resetRatings}>BURN!!1</button>
+          <ActionButton handleClick={resetRatings} text="Reset" />
         </ModalBox>
         {notEmpty(data) && <button className="action-icon" onClick={showModal}>Reset word ratings</button>}
       </Container>

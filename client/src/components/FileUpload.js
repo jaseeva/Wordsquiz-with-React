@@ -1,24 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import axios from "axios";
-
-const AddButton = styled.button`
-  float: right;
-  font-weight: bold;
-  font-size: 16px;
-  font-family: Montserrat;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  border: 2px solid #486d87;
-  background: white;
-  color: #486d87;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #486d87;
-    color: white;
-  }
-`;
+import ActionButton from "./ActionButton";
 
 const FileUpload = () => {
   const [file, setFile] = useState([]);
@@ -48,7 +30,7 @@ const FileUpload = () => {
         name="newWords"
         onChange={handleChange}
       />
-      <AddButton type="submit">Add words</AddButton>
+      <ActionButton type="submit" text="Add words" />
     </form>
   );
 };

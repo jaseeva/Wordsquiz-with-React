@@ -1,24 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import WordCard from "../components/WordCard";
-
-const DoneButton = styled.button`
-  width: 90%;
-  font-weight: bold;
-  font-size: 16px;
-  font-family: Montserrat;
-  margin: auto;
-  padding: 20px;
-  border: 2px solid #486d87;
-  background: #f7f6ee;
-  color: #486d87;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #486d87;
-    color: white;
-  }
-`;
+import ActionButton from "./ActionButton";
 
 const QuizContent = ({ quiz, onSubmit, onChange }) => {
   const handleSubmit = e => {
@@ -38,7 +20,7 @@ const QuizContent = ({ quiz, onSubmit, onChange }) => {
             theme="quiz"
             />
         ))}
-        <DoneButton type="submit">Done!</DoneButton>
+        <ActionButton type="submit" text="Done!" />
         </form>
     </div>
   )

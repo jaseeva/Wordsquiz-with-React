@@ -9,6 +9,24 @@ body {
   /* background: #FEE5A5; */
 }
 
+.action-button {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Montserrat;
+  padding: 5px 20px;
+  margin-bottom: 10px;
+  border: 2px solid #486d87;
+  background: none;
+  color: #486d87;
+  cursor: pointer;
+  margin: auto;
+}
+
+.action-button:hover {
+  background-color: #486d87;
+  color: white;
+}
+
 .action-icon {
   cursor: pointer;
   background: white;
@@ -121,6 +139,11 @@ div.words-list {
   text-align: center;
 }
 
+.quiz-content button {
+  width: 90%;
+  padding: 20px;
+}
+
 .quiz-item input {
   width: 80%;
   margin-top: 15px;
@@ -190,6 +213,7 @@ div.words-list {
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
+  text-align: center;
 }
 
 .close-modal {
