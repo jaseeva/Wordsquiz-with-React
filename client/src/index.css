@@ -50,20 +50,28 @@ body {
   padding-right: 0;
 }
 
+.nav-title a {
+  text-decoration: none;
+  color: black;
+  width: auto;
+}
+
+.nav-title a:hover {
+  color: #486D87;
+}
+
 .nav-item {
   margin: auto;
   padding-left: 20;
   padding-top: 8px;
-  /* width: 140px; */
 }
 
-.nav-item a {
-  font-weight: bold;
+.nav-item button {
   font-size: 18px;
   padding: 15px;
   display: inline-block;
   text-decoration: none;
-  /* border: 2px solid #486D87; */
+  border: none;
   color: #486D87;
 }
 
@@ -177,6 +185,7 @@ div.words-list {
 .wrap-comment {
   float: left;
   width: 250px;
+  padding: 10px 0;
 }
 
 .chart .pie-comment {

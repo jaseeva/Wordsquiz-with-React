@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import PieGraph from "./PieGraph";
 import Error from "./Error";
+import ActionButton from "./ActionButton";
 
 const LastSessionChart = () => {
   const [last, setLast] = useState([]);
@@ -48,11 +49,11 @@ const LastSessionChart = () => {
                 <br />
                 Wrong: {last[1].value}
               </p>
-              <div className="nav-item">
+              {/* <div className="nav-item"> */}
                 <NavLink to={{ pathname: "/quiz", state: "repeat" }}>
-                  Repeat last quiz
+                  <ActionButton text="Repeat last quiz" />
                 </NavLink>
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </React.Fragment>
