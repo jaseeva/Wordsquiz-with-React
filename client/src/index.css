@@ -134,6 +134,14 @@ div.words-list {
   background-color: #ddd;
 }
 
+th.sortable {
+  cursor: pointer;
+}
+
+.words-list th span{
+  vertical-align:middle;
+}
+
 .words-list td {
   text-align: center;
   padding: 4px;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-grid";
 import axios from "axios";
+import moment from "moment";
 import FileUpload from "../components/FileUpload";
 import WordList from "../components/WordList";
 import Branch from "../components/Branch";
@@ -14,14 +15,7 @@ const WordsPage = () => {
   const [data, setData] = useState([]);
   const [isError, setIsError] = useState(false);
   const [show, setShow] = useState(false);
-
-  const showModal = () => {
-    setShow(true);
-  };
-
-  const hideModal = () => {
-    setShow(false);
-  };
+  const [sort, setSort] = useState({column: null, order: 'desc'})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +32,35 @@ const WordsPage = () => {
   }, []);
 
   const notEmpty = data => data.length > 0;
+
+  const onSort = (column) => (e) => {
+    const order = sort.column ? (sort.order === 'asc' ? 'desc' : 'asc') : 'desc';
+    const sortedData = data.sort((a, b) => {
+      if (column === 'rating') {
+        return a.learned_rating - b.learned_rating;
+      } else {
+        const dateA = a.last_answered ? moment(a.last_answered).format("x") : 0
+        const dateB = b.last_answered ? moment(b.last_answered).format("x") : 0
+        return dateA - dateB;
+      }
+    });
+      
+    if (order === 'desc') {
+      sortedData.reverse();
+    }
+    
+    setData(sortedData)
+    setSort({column, order}); //why is it properly updated only from 2nd click?
+    console.log(`sort: `, sort)
+  };
+
+  const showModal = () => {
+    setShow(true);
+  };
+
+  const hideModal = () => {
+    setShow(false);
+  };
 
   const handleRemove = id => {
     axios.delete(`/delete_word/${id}`);
@@ -68,6 +91,7 @@ const WordsPage = () => {
           Alt={Empty}
           data={data}
           handleRemove={handleRemove}
+          handleSort={onSort}
         />
         <ModalBox show={show} handleClose={hideModal}>
           <p>

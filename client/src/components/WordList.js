@@ -1,7 +1,8 @@
 import React from "react";
 import WordListItem from "../components/WordListItem";
+import ActionIcon from "./ActionIcon";
 
-const WordList = ({ data, handleRemove }) => {
+const WordList = ({ data, handleRemove, handleSort }) => {
   return (
     <React.Fragment>
       <p>Total words: {data.length}</p>
@@ -10,8 +11,8 @@ const WordList = ({ data, handleRemove }) => {
           <tr>
             <th>Word</th>
             <th>Translation</th>
-            <th>Rating</th>
-            <th>Last answered</th>
+            <th onClick={handleSort('rating')} className="sortable" >Rating <ActionIcon name="unfold_more" /></th>
+            <th onClick={handleSort('date')} className="sortable" >Last answered <ActionIcon name="unfold_more" /></th>
             <th></th>
           </tr>
         </thead>

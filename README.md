@@ -6,6 +6,7 @@ A web app to learn new words in another language. Like flashcards, but better.
 - see the list of words with current rating and last access date
 - delete words from list
 - reset learned_rating for all words
+- sort table by rating or answer date
 - start a quiz that selects random 5 words with the worst learned_rating (below median)
 - see results after completing the quiz
 - repeat last quiz
@@ -28,11 +29,11 @@ BE: Express and sqlite database.
 - [x] delete word from the list
 - [x] reset word ratings
 - [x] improve components composition (ongoing)
-- [ ] better error handling
+- [x] better error handling
+- [x] add sorting for the list columns
 - [ ] make server and app run with 1 command
 - [ ] add simple login and update routing
 - [ ] add component tests
-- [ ] add sorting for the list columns
 - [ ] add pagination for the word list
 - [ ] add a graph/progress bar showing overall success rate for the whole list
 - [ ] make responsive and mobile-friendly
