@@ -8,6 +8,7 @@ import ActionButton from "./ActionButton";
 const LastSessionChart = () => {
   const [last, setLast] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [repeatWrong, setRepeat] = useState(false);
 
   useEffect(() => {
     const fetchLast = async () => {
@@ -36,6 +37,11 @@ const LastSessionChart = () => {
     fetchLast();
   }, []);
 
+  const handleCheckbox = () => {
+    const includeWrong = !repeatWrong
+    setRepeat(includeWrong)
+  }
+
   return (
     <div className="chart shadow-box">
       {isError && <Error/>}
@@ -49,11 +55,11 @@ const LastSessionChart = () => {
                 <br />
                 Wrong: {last[1].value}
               </p>
-              {/* <div className="nav-item"> */}
-                <NavLink to={{ pathname: "/quiz", state: "repeat" }}>
+                <input type="checkbox" id="repeatWrong" name="repeatWrong" value={repeatWrong} onChange={handleCheckbox} disabled={last[1].value === 0} />
+                <label for="repeatWrong">Repeat only wrong</label>
+                <NavLink to={{ pathname: "/quiz", state: ["repeat", repeatWrong] }}>
                   <ActionButton text="Repeat last quiz" />
                 </NavLink>
-              {/* </div> */}
             </div>
           </div>
         </React.Fragment>

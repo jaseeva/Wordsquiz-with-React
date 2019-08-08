@@ -31,6 +31,8 @@ BE: Express and sqlite database.
 - [x] improve components composition (ongoing)
 - [x] better error handling
 - [x] add sorting for the list columns
+- [x] repeat only wrong from last quiz
+- [ ] select mode for quiz
 - [ ] make server and app run with 1 command
 - [ ] add simple login and update routing
 - [ ] add component tests

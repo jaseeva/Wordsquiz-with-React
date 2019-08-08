@@ -15,7 +15,6 @@ const QuizPage = props => {
   const [quiz, setQuiz] = useState([]);
   const [done, setDone] = useState(false);
   const [isError, setIsError] = useState(false);
-  // console.log(`props: `, props)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,13 +35,18 @@ const QuizPage = props => {
         const result = await axios.get("/quiz_repeat");
         const words = result.data;
         const withAnswerField = words.map(el => el = {...el, correct: false})
-        setQuiz(withAnswerField);
+        // check if repeatWrong was selected
+        if (props.location.state[1] === true) {
+          const onlyWrong = words.filter(word => word.last_result === 0)
+          setQuiz(onlyWrong)
+        } 
+        else setQuiz(withAnswerField);
       } catch (error) {
         setIsError(true);
       }
     };
 
-    const mode = props.location.state;
+    const mode = props.location.state[0];
     if (mode === "repeat") fetchLast();
     else fetchData();
   }, []);
