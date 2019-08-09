@@ -9,14 +9,15 @@ A web app to learn new words in another language. Like flashcards, but better.
 - sort table by rating or answer date
 - start a quiz that selects random 5 words with the worst learned_rating (below median)
 - see results after completing the quiz
-- repeat last quiz
+- repeat last quiz (all words or only wrong)
 - see chart for the last quiz results and bar graph for past 10 quizzes
 - empty states are handled (mostly)
 
 **Setup:**
 Works only locally for now. Make sure you have node.js installed.
-1) From the root folder, run `npm install` and then `npm start` to run the server; 
-2) In another terminal, from the /client folder do the same 2 commands to run the app; 
+1) From the root folder, run `npm install`
+2) From the /client folder also run `npm install`
+3) Go back to the root and run `npm start` (should start both server and client) 
 Test file that can be uploaded is in `/files/words.csv`
 
 **Tech:**
@@ -32,10 +33,10 @@ BE: Express and sqlite database.
 - [x] better error handling
 - [x] add sorting for the list columns
 - [x] repeat only wrong from last quiz
+- [x] make server and app run with 1 command
 - [ ] select mode for quiz
-- [ ] make server and app run with 1 command
 - [ ] add simple login and update routing
-- [ ] add component tests
+- [ ] add tests
 - [ ] add pagination for the word list
 - [ ] add a graph/progress bar showing overall success rate for the whole list
 - [ ] make responsive and mobile-friendly
