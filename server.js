@@ -34,7 +34,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 // });
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/test.db', (err) => {
+const db = new sqlite3.Database('./db/wordsquiz.db', (err) => {
     if (err) {
       console.error(err.message);
     }
