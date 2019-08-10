@@ -3,6 +3,7 @@ A web app to learn new words in another language. Like flashcards, but better.
 
 **Features:**
 - upload .csv file with words which are added to db immediately
+- enter new words manually in text input
 - see the list of words with current rating and last access date
 - delete words from list
 - reset learned_rating for all words
@@ -42,3 +43,4 @@ BE: Express and sqlite database.
 - [ ] make responsive and mobile-friendly
 - [ ] add loading state for quiz and list
 - [ ] extract text and store it separately
+- [ ] make it online
