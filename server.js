@@ -153,6 +153,18 @@ const db = new sqlite3.Database('./test.db', (err) => {
     }
   });
 
+  app.post('/new_word', (req, res, next) => {
+    const word = req.body[0].split(';')
+    let sql = 'INSERT OR IGNORE INTO words (word, translation) VALUES (?, ?)';
+    db.run(sql, word, (err, rows) => {
+      if (err) {
+        err.message = `Couldn't add new word ${word} `+err.message
+        next(err);
+      }
+      res.json({"message":"word added", changes: this.changes})
+    })
+  })
+
   app.delete('/delete_word/:id', (req, res, next) => {
     const sql = "DELETE FROM words WHERE id = ?"
     const id = req.params.id

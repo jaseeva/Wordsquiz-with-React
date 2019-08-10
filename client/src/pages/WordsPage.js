@@ -8,6 +8,7 @@ import Branch from "../components/Branch";
 import Error from "../components/Error";
 import ModalBox from "../components/ModalBox";
 import ActionButton from "../components/ActionButton";
+import AddWordForm from "../components/AddWordForm";
 
 const Empty = () => <p>Please upload a .csv file to add some words</p>;
 
@@ -16,6 +17,7 @@ const WordsPage = () => {
   const [isError, setIsError] = useState(false);
   const [show, setShow] = useState(false);
   const [sort, setSort] = useState({column: null, order: 'desc'})
+  const [value, setValue] = useState()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +34,15 @@ const WordsPage = () => {
   }, []);
 
   const notEmpty = data => data.length > 0;
+
+  const onWordChange = (newValue) => {
+    setValue(newValue)
+  }
+
+  const onWordSubmit = () => {
+    const data = [value]
+    axios.post("/new_word", data)
+  }
 
   const onSort = (column) => (e) => {
     const order = sort.column ? (sort.order === 'asc' ? 'desc' : 'asc') : 'desc';
@@ -51,7 +62,7 @@ const WordsPage = () => {
     
     setData(sortedData)
     setSort({column, order}); //why is it properly updated only from 2nd click?
-    console.log(`sort: `, sort)
+    // console.log(`sort: `, sort)
   };
 
   const showModal = () => {
@@ -84,6 +95,7 @@ const WordsPage = () => {
 
       <Container className="words-list shadow-box">
         <FileUpload />
+        <AddWordForm onChange={onWordChange} onSubmit={onWordSubmit} value={value} />
         {isError && <Error />}
         <Branch
           condition={notEmpty(data)}
