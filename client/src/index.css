@@ -118,6 +118,10 @@ div.words-list {
   padding: 10px;
 }
 
+.word-form input {
+  padding: 5px;
+}
+
 .words-list table {
   width: 100%;
   border: 2px solid #ddd;

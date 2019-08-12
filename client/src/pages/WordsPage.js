@@ -40,8 +40,11 @@ const WordsPage = () => {
   }
 
   const onWordSubmit = () => {
-    const data = [value]
-    axios.post("/new_word", data)
+    if (value) {
+      const newWord = [value]
+      axios.post("/new_word", newWord)
+      window.location.reload()
+    }
   }
 
   const onSort = (column) => (e) => {
@@ -95,7 +98,7 @@ const WordsPage = () => {
 
       <Container className="words-list shadow-box">
         <FileUpload />
-        <AddWordForm onChange={onWordChange} onSubmit={onWordSubmit} value={value} />
+        <AddWordForm onChange={onWordChange} onSubmit={onWordSubmit} />
         {isError && <Error />}
         <Branch
           condition={notEmpty(data)}
