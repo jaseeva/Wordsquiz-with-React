@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const csv = require('fast-csv');
 const multer = require('multer')
@@ -12,6 +13,7 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json())
 app.use(cors())
 // global.__basedir = __dirname;
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
