@@ -18,7 +18,7 @@ A web app to learn new words in another language. Like flashcards, but better.
 Works only locally for now. Make sure you have node.js installed.
 1) From the root folder, run `npm install`
 2) From the /client folder also run `npm install`
-3) Go back to the root and run `npm start` (should start both server and client) 
+3) Go back to the root and run `npm run dev` (should start both server and client) 
 Test file that can be uploaded is in `/files/words.csv`
 
 **Tech:**
