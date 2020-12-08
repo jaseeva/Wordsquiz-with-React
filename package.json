@@ -17,7 +17,7 @@
     "concurrently": "^4.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "fast-csv": "^3.1.0",
+    "fast-csv": "^4.3.6",
     "moment": "^2.24.0",
     "multer": "^1.4.1",
     "react-grid": "^3.0.6",
