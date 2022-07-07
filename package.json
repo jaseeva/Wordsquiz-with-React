@@ -18,7 +18,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "fast-csv": "^4.3.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "multer": "^1.4.1",
     "react-grid": "^3.0.6",
     "react-moment": "^0.9.2",
